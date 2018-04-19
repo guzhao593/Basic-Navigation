@@ -1,0 +1,34 @@
+html, body, h1, h2, h3, h4, h5, h6, ul, li, ol, p, div, dl, dt, dd, input, textarea, select, form{
+    margin: 0;
+    padding: 0;
+}
+ul, li {
+    list-style: 0 none;
+}
+a {
+    text-decoration: none;
+    color: #222;
+}
+
+img {
+    display: block;
+    border: 0 none;
+}
+input, select, textarea, button {
+    outline: none;
+}
+
+.clearfix::after {
+    content: '';
+    height: 0px;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    zoom: 1;
+    clear: both;
+}
+em, i { font-style: normal; }
+
+.fl { float: left; }
+
+.fr { float: right; }
