@@ -5,7 +5,7 @@
     header('Access-Control-Allow-Methods:*');  
     $severname = 'localhost';
     $username = 'root';
-    $password = '123456';
+    $password = '';
     $dbname = 'mycommonweb';
     $conn = new mysqli($severname,$username,$password,$dbname);
     if($conn->connect_error){
