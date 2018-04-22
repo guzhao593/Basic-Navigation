@@ -5,14 +5,18 @@
       <el-aside style="width: 20vw">
         <m-menu></m-menu>
       </el-aside>
-      <el-main></el-main>
+      <el-main>
+        <router-view></router-view>
+        <!-- <web-show></web-show> -->
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
   import MMenu from 'components/m-menu.vue'
-
+  import WebShow from 'components/web-show.vue'
+  import OtherShow from 'components/other-show.vue'
   export default {
     name: 'home',
     data () {

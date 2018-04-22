@@ -7,8 +7,8 @@
 	  :key="idx"
 	  index="idx"
 	>
-	  <router-link to="/">
-		{{name.name}}
+	  <router-link :to="'/' + name.className" tag="div">
+		{{name.className}}
 	  </router-link>
 	</el-menu-item>
   </el-menu>
@@ -23,15 +23,15 @@
           menuData: []
         }
       },
-      created () {
-		req('web', {
-			class: 'javascript'
-		}).then(data => {
-			console.log(data, 'data')
-		}).catch(err => {
-			console.log(err, 'err')
-		})
-        this.menuData =  Array(20).fill({name: '首页'})
-      }
-    } 
+    created () {
+			req('web', {
+				menu: 'all'
+			}).then(data => {
+				this.menuData = data
+				console.log(data, 'data')
+			}).catch(err => {
+				console.log(err, 'err')
+			})
+		}
+  } 
 </script>
