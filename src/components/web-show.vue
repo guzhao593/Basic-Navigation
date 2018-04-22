@@ -1,13 +1,14 @@
 <template>
   <div>
-    <span
+    <a 
       v-for="(web, index) of webData"
       :key="index"
+      :href="getUrl(web.url)" 
+      target="blank"
+      class="web-link"
     >
-      <a :href="getUrl(web.url)" target="blank">
-        {{web.name}}
-      </a>
-    </span>
+      {{web.name}}
+    </a>
   </div>
 </template>
 
@@ -43,4 +44,23 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  @import 'style/mixin.scss';
+  .web-link{
+    display: block;
+    color: #337ab7;
+    font-size: 14px;
+    float: left;
+    width: 140px;
+    padding: 0 10px;
+    min-height: 45px;
+    line-height: 45px;
+    text-align: center;
+    @include text-ellipsis;
+    &:hover{
+      text-decoration: underline;
+      color: #FF5E53;
+      // background-color: #eff;
+    }
+  }
+</style>

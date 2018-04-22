@@ -53,7 +53,7 @@
         $conn->close();
     }
     if($menu != ''){
-        $sql = "select * from class";
+        $sql = "select * from class order by orderNumber asc";
         $result = $conn->query($sql);
         $row = $result->fetch_all(MYSQLI_ASSOC);
         $result->close();
