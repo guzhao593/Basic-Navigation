@@ -49,13 +49,13 @@
   .web-link{
     display: block;
     color: #337ab7;
-    font-size: 14px;
+    font-size: 12px;
     float: left;
-    width: 140px;
+    width: 160px;
     padding: 0 10px;
     min-height: 45px;
     line-height: 45px;
-    text-align: center;
+    text-align: left;
     @include text-ellipsis;
     &:hover{
       text-decoration: underline;

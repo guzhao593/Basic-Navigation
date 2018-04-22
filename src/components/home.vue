@@ -2,7 +2,7 @@
   <el-container>
     <el-header style="height: 80px"></el-header>
     <el-container>
-      <el-aside style="width: 20vw">
+      <el-aside style="width: 10vw">
         <m-menu></m-menu>
       </el-aside>
       <el-main>
@@ -29,8 +29,8 @@
 
 <style scoped lang="scss">
   .el-aside{
-    min-width: 200px;
-    max-width: 250px;
+    min-width: 100px;
+    max-width: 200px;
     height: calc(100vh - 80px);
     background: #d3dce6;
   }

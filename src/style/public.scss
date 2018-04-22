@@ -32,3 +32,28 @@ em, i { font-style: normal; }
 .fl { float: left; }
 
 .fr { float: right; }
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px
+}
+
+::-webkit-scrollbar-button {
+    display: none
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: transparent
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #60bd68;
+  &:hover {
+    background-color: #d6dad7;
+  }
+  // &:horizontal {
+  // }
+}
