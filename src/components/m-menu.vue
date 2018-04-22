@@ -1,16 +1,18 @@
 <template>
   <el-menu
-	model="vertical"
+		model="vertical"
+		default-active="0"
+		
   >
-	<el-menu-item
-	  v-for="(name, idx) of menuData"
-	  :key="idx"
-	  index="idx"
-	>
-	  <router-link :to="'/' + name.className" tag="div">
-		{{name.className}}
-	  </router-link>
-	</el-menu-item>
+		<el-menu-item
+			v-for="(name, idx) in menuData"
+			:key="idx"
+			:index="idx"
+		>
+			<router-link :to="'/' + name.className" tag="div">
+				{{name.className}}
+			</router-link>
+		</el-menu-item>
   </el-menu>
 </template>
 
@@ -18,19 +20,28 @@
 	import req from 'api/web'
 	export default {
 	  name: 'MMenu',
-      data () {
-        return {
-          menuData: []
-        }
-      },
+    data () {
+			return {
+				menuData: []
+			}
+    },
     created () {
-			req('menu', {
-				menu: 'all'
-			}).then(data => {
+			req('menu', {menu: 'all'})
+			.then(data => {
 				this.menuData = data
-			}).catch(err => {
+			})
+			.catch(err => {
 				console.log(err, 'err')
 			})
 		}
   } 
 </script>
+
+<style lang="scss" scoped>
+	.el-menu-item{
+		// color: #333;
+		&:hover{
+			// background-color: #FF5E53;
+		}
+	}
+</style>
