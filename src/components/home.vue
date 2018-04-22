@@ -15,8 +15,6 @@
 
 <script>
   import MMenu from 'components/m-menu.vue'
-  import WebShow from 'components/web-show.vue'
-  import OtherShow from 'components/other-show.vue'
   export default {
     name: 'home',
     data () {

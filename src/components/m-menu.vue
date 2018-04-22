@@ -24,11 +24,11 @@
         }
       },
     created () {
-			req('web', {
+			req('menu', {
 				menu: 'all'
 			}).then(data => {
 				this.menuData = data
-				console.log(data, 'data')
+				// console.log(data, 'data')
 			}).catch(err => {
 				console.log(err, 'err')
 			})
