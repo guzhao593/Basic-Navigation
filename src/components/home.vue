@@ -15,6 +15,7 @@
 
 <script>
   import MMenu from 'components/m-menu.vue'
+  import { clone, cloneData } from 'util/index.js'
   export default {
     name: 'home',
     data () {
@@ -23,6 +24,13 @@
     },
     components: {
       MMenu
+    },
+    created () {
+      const obj = [111]
+      const value = clone(obj)
+      console.log('value', value)
+      const newValue = cloneData(obj)
+      console.log('newvalue', newValue)      
     }
   }
 </script>
