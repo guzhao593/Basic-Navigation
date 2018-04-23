@@ -7,7 +7,7 @@
 		<el-menu-item
 			v-for="(name, idx) in menuData"
 			:key="idx"
-			:index="idx"
+			:index="idx + ''"
 		>
 			<router-link :to="'/' + name.className" tag="div">
 				{{name.className}}
