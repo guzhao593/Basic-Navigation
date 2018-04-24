@@ -29,3 +29,15 @@ export const cloneData = function (obj) {
   }
   return newObj
 }
+
+export function maxLetterNumber (param) {
+  let reg = /[^a-zA-z]/g
+  let newParam = param.replace(reg, '')
+  let newArr = [...new Set(newParam.split(''))]
+  const newObj = newParam.split('').reduce((init, currt) => {
+    init[currt] = init[currt] ? ++init[currt] : 1
+    return init
+  }, {})
+  console.log(Object.values(newObj))
+  return {number: newArr.length, max: Object.values(newObj).length ? Math.max.apply(null, Object.values(newObj)) : 0}
+}

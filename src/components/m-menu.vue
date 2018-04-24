@@ -1,25 +1,33 @@
 <template>
-  <el-menu
+		<el-menu
 		model="vertical"
 		default-active="0"
-		
-  >
-		<el-menu-item
-			v-for="(name, idx) in menuData"
-			:key="idx"
-			:index="idx + ''"
-		>
-			<router-link :to="'/' + name.className" tag="div">
-				{{name.className}}
-			</router-link>
-		</el-menu-item>
+  	>
+			<draggable
+				v-model="menuData"
+				element="div"
+			>
+				<el-menu-item
+					v-for="(name, idx) in menuData"
+					:key="idx"
+					:index="idx + ''"
+				>
+					<router-link :to="'/' + name.className" tag="div">
+						{{name.className}}
+					</router-link>
+				</el-menu-item>
+			</draggable>
   </el-menu>
 </template>
 
 <script>
 	import req from 'api/web'
+	import draggable from 'vuedraggable'
 	export default {
-	  name: 'MMenu',
+		name: 'MMenu',
+		components: {
+			draggable
+		},
     data () {
 			return {
 				menuData: []

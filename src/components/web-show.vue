@@ -1,22 +1,43 @@
 <template>
   <div>
-    <a 
-      v-for="(web, index) of webData"
-      :key="index"
-      :href="getUrl(web.url)" 
-      target="blank"
-      class="web-link"
+    <draggable
+      v-model="webData"
+      element="div"
+      :options="{
+        disabled: false, 
+        chosenClass: 'choose', 
+        ghostClass: 'ghost', 
+        animation: 150,
+        dragClass: 'drag'
+      }"
+      @start="moveStart"
+      @end="moveEnd"
+      @move="move"
     >
-      {{web.name}}
-    </a>
+      <transition-group>
+        <a 
+          v-for="(web, index) of webData"
+          :key="index"
+          :href="getUrl(web.url)" 
+          target="blank"
+          class="web-link"
+        >
+          {{web.name}}
+        </a>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
 <script>
   import req from 'api/web'
   import { BASE_URL } from 'config/api'
+  import draggable from 'vuedraggable'
   export default {
     name: 'WebShow',
+    components: {
+      draggable
+    },
     data () {
       return {
         webData: []
@@ -39,6 +60,15 @@
       },
       getUrl (url) {
         return url.includes('http') ? url : `${BASE_URL}\\${url}`
+      },
+      moveStart (item) {
+        // console.log('start', item)
+      },
+      moveEnd (item) {
+        console.log('End', item)
+      },
+      move (item) {
+        console.log('move', item)
       }
     }
   }
@@ -62,5 +92,15 @@
       color: #FF5E53;
       // background-color: #eff;
     }
+  }
+  .choose{
+    background-color: #ccc;
+  }
+  .ghost{
+    Opacity: 0;
+  }
+  .drag{
+    Opacity: 0.5;
+    background-color: #ccc;
   }
 </style>
