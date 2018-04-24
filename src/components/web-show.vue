@@ -4,11 +4,11 @@
       v-model="webData"
       element="div"
       :options="{
-        disabled: false, 
-        chosenClass: 'choose', 
-        ghostClass: 'ghost', 
-        animation: 150,
-        dragClass: 'drag'
+        disabled: false, // 设置是否可拖动
+        chosenClass: 'choose', // 选择元素的class类名
+        ghostClass: 'ghost', // 占位元素的class类名
+        animation: 150, // 动画效果
+        dragClass: 'drag' // 拖动元素的class类名
       }"
       @start="moveStart"
       @end="moveEnd"

@@ -16,6 +16,9 @@
 						{{name.className}}
 					</router-link>
 				</el-menu-item>
+				<el-menu-item :index="'ueditor'">
+					<router-link to="/ueditor" tag="div">ueditor</router-link>
+				</el-menu-item>
 			</draggable>
   </el-menu>
 </template>
