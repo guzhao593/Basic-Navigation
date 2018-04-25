@@ -1,5 +1,14 @@
 <template>
   <div>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item
+        v-for="(item, idx) of breadcrumbData"
+        :key="idx"
+        :to="getToLink(item, idx)"
+      >
+      {{item.path ? $route.path.replace('/', '') : item.name}}
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <draggable
       v-model="webData"
       element="div"
@@ -33,6 +42,7 @@
   import req from 'api/web'
   import { BASE_URL } from 'config/api'
   import draggable from 'vuedraggable'
+
   export default {
     name: 'WebShow',
     components: {
@@ -40,15 +50,18 @@
     },
     data () {
       return {
-        webData: []
+        webData: [],
+        breadcrumbData: []
       }
     },
     beforeRouteEnter (to, from, next) {
       next(vm => {
+        vm.breadcrumbData = to.matched
         vm.fetch(to.params)
       })
     },
     beforeRouteUpdate (to, from, next) {
+      this.breadcrumbData = to.matched
       this.fetch(to.params)
       next()
     },
@@ -60,6 +73,17 @@
       },
       getUrl (url) {
         return url.includes('http') ? url : `${BASE_URL}\\${url}`
+      },
+      getToLink (item, idx) {
+        if (!item.path) return item.redirect ? item.redirect : '/'
+        
+        if (idx === this.breadcrumbData.length - 1) return ''
+
+        let path = item.path
+        Object.keys(this.$route.params).forEach(param => {
+            path = path.replace(`:${param}`, this.$route.params[param])
+        })
+        return path
       },
       moveStart (item) {
         // console.log('start', item)

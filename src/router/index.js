@@ -10,7 +10,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '首页',
       redirect: '/javascript',
       component: Home,
       children: [
