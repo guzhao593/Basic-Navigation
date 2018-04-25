@@ -49,13 +49,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.el-menu{
+		border-right: none;
+	}
 	.el-menu-item{
 		font-size: 12px;
 		height: 45px;
 		line-height: 45px;
-		// color: #333;
-		&:hover{
-			// background-color: #FF5E53;
-		}
 	}
 </style>

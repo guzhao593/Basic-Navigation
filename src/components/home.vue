@@ -35,7 +35,8 @@
     min-width: 100px;
     max-width: 200px;
     height: calc(100vh - 80px);
-    background: #d3dce6;
+    background-color: #fff;
+    border-right: 1px solid #e6e6e6;
   }
   .el-header{
     height: 120px;
