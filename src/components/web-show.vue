@@ -117,6 +117,10 @@
       // background-color: #eff;
     }
   }
+  .el-breadcrumb{
+    border-bottom: 1px solid #58bc58;
+    line-height: 30px;
+  }
   .choose{
     background-color: #ccc;
   }

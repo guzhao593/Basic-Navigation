@@ -44,5 +44,6 @@
   }
   .el-main{
     height: calc(100vh - 80px);
+    padding: 5px 10px;
   }
 </style>
