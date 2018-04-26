@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="web-show">
+    <i class="el-icon-setting setting" @click="handlerEdit()"></i>
     <draggable
       v-model="webData"
       element="div"
       :options="{
-        disabled: false, // 设置是否可拖动
+        disabled: isEditor, // 设置是否可拖动
         chosenClass: 'choose', // 选择元素的class类名
         ghostClass: 'ghost', // 占位元素的class类名
         animation: 150, // 动画效果
@@ -12,10 +13,9 @@
       }"
       @start="moveStart"
       @end="moveEnd"
-      @move="move"
     >
       <transition-group>
-        <a 
+        <a
           v-for="(web, index) of webData"
           :key="index"
           :href="getUrl(web.url)" 
@@ -41,7 +41,8 @@
     },
     data () {
       return {
-        webData: []
+        webData: [],
+        isEditor: true
       }
     },
     beforeRouteEnter (to, from, next) {
@@ -55,15 +56,15 @@
     },
     methods: {
       fetch ({className}) {
-        req('web',{class: className}).then(data => {
+        req('web', {class: className}).then(data => {
           this.webData = data
         })
       },
       getUrl (url) {
         return url.includes('http') ? url : `${BASE_URL}\\${url}`
       },
-      moveStart (item) {
-        // console.log('start', item)
+      handlerEdit () {
+        this.isEditor = !this.isEditor
       },
       moveEnd (item) {
         console.log('End', item)
@@ -104,4 +105,21 @@
     Opacity: 0.5;
     background-color: #ccc;
   }
+  .web-show {
+    position: relative;
+    .setting{
+      position: absolute;
+      top: -26px;
+      right: 10px;
+      font-size: 18px;
+      color: #FF5E53;
+      transition: 0.5s all;
+      &:hover{
+        color: rgb(86, 29, 151);
+        cursor: pointer;
+        transform: rotate(180deg) scale(1.2);
+      }
+    }
+  }
+  
 </style>

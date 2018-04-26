@@ -8,7 +8,6 @@
       <el-main>
         <m-breadcrumb></m-breadcrumb>
         <router-view></router-view>
-        <!-- <web-show></web-show> -->
       </el-main>
     </el-container>
   </el-container>
@@ -17,7 +16,6 @@
 <script>
   import MMenu from 'components/common/m-menu.vue'
   import MBreadcrumb from 'components/common/m-breadcrumb.vue'
-  import { clone, cloneData, maxLetterNumber } from 'util/index.js'
   export default {
     name: 'home',
     data () {

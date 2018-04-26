@@ -24,15 +24,15 @@
     methods: {
       getToLink (item, idx) {
         if (!item.path) return item.redirect ? item.redirect : '/'
-        
+  
         if (idx === this.breadcrumbData.length - 1) return ''
 
         let path = item.path
         Object.keys(this.$route.params).forEach(param => {
-            path = path.replace(`:${param}`, this.$route.params[param])
+          path = path.replace(`:${param}`, this.$route.params[param])
         })
         return path
-      },
+      }
     }
   }
 </script>
