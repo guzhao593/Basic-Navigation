@@ -7,7 +7,7 @@
       </el-aside>
       <el-main>
         <m-breadcrumb></m-breadcrumb>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -27,6 +27,7 @@
       MBreadcrumb
     },
     created () {
+      console.log(this.$route)
     }
   }
 </script>

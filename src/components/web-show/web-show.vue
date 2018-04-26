@@ -45,14 +45,8 @@
         isEditor: true
       }
     },
-    beforeRouteEnter (to, from, next) {
-      next(vm => {
-        vm.fetch(to.params)
-      })
-    },
-    beforeRouteUpdate (to, from, next) {
-      this.fetch(to.params)
-      next()
+    created () {
+      this.fetch(this.$route.params)
     },
     methods: {
       fetch ({className}) {
@@ -69,7 +63,7 @@
       moveEnd (item) {
         console.log('End', item)
       },
-      move (item) {
+      moveStart (item) {
         console.log('move', item)
       }
     }
