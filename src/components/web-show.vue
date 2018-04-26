@@ -1,14 +1,5 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item
-        v-for="(item, idx) of breadcrumbData"
-        :key="idx"
-        :to="getToLink(item, idx)"
-      >
-      {{item.path ? $route.path.replace('/', '') : item.name}}
-      </el-breadcrumb-item>
-    </el-breadcrumb>
     <draggable
       v-model="webData"
       element="div"
@@ -50,18 +41,15 @@
     },
     data () {
       return {
-        webData: [],
-        breadcrumbData: []
+        webData: []
       }
     },
     beforeRouteEnter (to, from, next) {
       next(vm => {
-        vm.breadcrumbData = to.matched
         vm.fetch(to.params)
       })
     },
     beforeRouteUpdate (to, from, next) {
-      this.breadcrumbData = to.matched
       this.fetch(to.params)
       next()
     },
@@ -73,17 +61,6 @@
       },
       getUrl (url) {
         return url.includes('http') ? url : `${BASE_URL}\\${url}`
-      },
-      getToLink (item, idx) {
-        if (!item.path) return item.redirect ? item.redirect : '/'
-        
-        if (idx === this.breadcrumbData.length - 1) return ''
-
-        let path = item.path
-        Object.keys(this.$route.params).forEach(param => {
-            path = path.replace(`:${param}`, this.$route.params[param])
-        })
-        return path
       },
       moveStart (item) {
         // console.log('start', item)
@@ -116,10 +93,6 @@
       color: #FF5E53;
       // background-color: #eff;
     }
-  }
-  .el-breadcrumb{
-    border-bottom: 1px solid #58bc58;
-    line-height: 30px;
   }
   .choose{
     background-color: #ccc;

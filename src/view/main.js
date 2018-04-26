@@ -11,13 +11,16 @@ import router from 'router'
 
 import ElementUI from 'element-ui'
 
-import 'element-ui/lib/theme-chalk/index.css'
+// 加快编译速度：将element-ui的index.css复制到src中
+import 'style/element-theme/index.css'
 
 import 'style/public.scss'
+
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+
 
 new Vue({
   el: '#app',

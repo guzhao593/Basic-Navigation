@@ -6,6 +6,7 @@
         <m-menu></m-menu>
       </el-aside>
       <el-main>
+        <m-breadcrumb></m-breadcrumb>
         <router-view></router-view>
         <!-- <web-show></web-show> -->
       </el-main>
@@ -14,7 +15,8 @@
 </template>
 
 <script>
-  import MMenu from 'components/m-menu.vue'
+  import MMenu from 'components/common/m-menu.vue'
+  import MBreadcrumb from 'components/common/m-breadcrumb.vue'
   import { clone, cloneData, maxLetterNumber } from 'util/index.js'
   export default {
     name: 'home',
@@ -23,7 +25,8 @@
       }
     },
     components: {
-      MMenu
+      MMenu,
+      MBreadcrumb
     },
     created () {
     }
