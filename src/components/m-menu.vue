@@ -1,7 +1,7 @@
 <template>
 		<el-menu
 		model="vertical"
-		default-active="0"
+		:default-active="$route.path"
   	>
 			<draggable
 				v-model="menuData"
