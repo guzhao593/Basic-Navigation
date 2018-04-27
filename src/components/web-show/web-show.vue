@@ -5,7 +5,7 @@
       v-model="webData"
       element="div"
       :options="{
-        disabled: isEditor, // 设置是否可拖动
+        disabled: (isEditor || isDraggable), // 设置是否可拖动
         chosenClass: 'choose', // 选择元素的class类名
         ghostClass: 'ghost', // 占位元素的class类名
         animation: 150, // 动画效果
@@ -15,15 +15,15 @@
       @end="moveEnd"
     >
       <transition-group>
-        <a
+        <web-item 
           v-for="(web, index) of webData"
           :key="index"
-          :href="getUrl(web.url)" 
-          target="blank"
-          class="web-link"
+          :web="web"
+          :isEditor="isEditor"
+          @againFetch="fetch($route.params)" 
+          @undoDraggable="undoDraggable"
         >
-          {{web.name}}
-        </a>
+        </web-item>
       </transition-group>
     </draggable>
   </div>
@@ -31,18 +31,34 @@
 
 <script>
   import req from 'api/web'
-  import { BASE_URL } from 'config/api'
   import draggable from 'vuedraggable'
+  import WebItem from './web-item.vue'
 
   export default {
     name: 'WebShow',
     components: {
-      draggable
+      draggable,
+      WebItem
     },
     data () {
       return {
         webData: [],
-        isEditor: true
+        isEditor: true,
+        isDraggable: false
+      }
+    },
+    computed: {
+      disabledDraggable () {
+        console.log(this.isEditor, this.isDraggable)
+        return (this.isEditor && this.isDraggable)
+      }
+    },
+    watch: {
+      isEditor () {
+        console.log(this.isEditor, this.isDraggable)
+      },
+      isDraggable () {
+        console.log(this.isEditor, this.isDraggable)
       }
     },
     created () {
@@ -54,11 +70,11 @@
           this.webData = data
         })
       },
-      getUrl (url) {
-        return url.includes('http') ? url : `${BASE_URL}\\${url}`
-      },
       handlerEdit () {
         this.isEditor = !this.isEditor
+      },
+      undoDraggable (bool) {
+        this.isDraggable = bool
       },
       moveEnd (item) {
         console.log('End', item)
@@ -71,24 +87,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'style/mixin.scss';
-  .web-link{
-    display: block;
-    color: #337ab7;
-    font-size: 12px;
-    float: left;
-    width: 160px;
-    padding: 0 10px;
-    min-height: 45px;
-    line-height: 45px;
-    text-align: left;
-    @include text-ellipsis;
-    &:hover{
-      text-decoration: underline;
-      color: #FF5E53;
-      // background-color: #eff;
-    }
-  }
   .choose{
     background-color: #ccc;
   }
@@ -96,8 +94,8 @@
     Opacity: 0;
   }
   .drag{
-    Opacity: 0.5;
-    background-color: #ccc;
+    Opacity: 0.8;
+    background-color: #999;
   }
   .web-show {
     position: relative;
