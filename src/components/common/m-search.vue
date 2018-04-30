@@ -1,7 +1,13 @@
 <template>
   <el-form>
-    <el-form-item style="width: 30vw">
-      <el-input type="text" v-model="word">
+    <el-form-item style="width: 35vw">
+      <el-input type="text" v-model="word" @keydown.enter.native="submit">
+        <i 
+          v-if="word !== ''"
+          slot="suffix" 
+          class="el-input__icon el-icon-error"
+          @click="clear" 
+        ></i>
         <el-select v-model="searchClass" slot="prepend">
           <el-option
             v-for="(item, idx) of searchClassOptions"
@@ -10,7 +16,7 @@
             :value="item.value"
           ></el-option>
         </el-select>
-      <el-button slot="append" @click="submit">搜索</el-button>
+        <el-button slot="append" @click="submit">搜索</el-button>
       </el-input>
     </el-form-item>
   </el-form>
@@ -50,12 +56,16 @@
         } else {
           req('')
         }
+      },
+      clear () {
+        this.word = ''
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  @import 'style/var.scss';
   .el-form-item{
     margin-bottom: 0px;
     /deep/ .el-input__inner{
@@ -67,6 +77,13 @@
       width: 80px;
       .el-input__inner{
         border: 0 none;
+      }
+    }
+    .el-input__icon{
+      line-height: 30px;
+      font-size: 12px;
+      &:hover{
+        color: $main-color;
       }
     }
   }
