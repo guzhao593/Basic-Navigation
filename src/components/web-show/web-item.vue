@@ -10,45 +10,29 @@
       <i class="el-icon-edit icon-edit icon" @click="editWeb"></i>
       <i class="el-icon-circle-close icon-close icon" @click="deleteWeb"></i>
     </template>
-    <el-dialog
-      title="修改"
-      :visible.sync="isShowDialog"
-      width="30%"
-    >
-      <el-form label-width="80px">
-        <el-form-item label="网站名称：">
-          <el-input v-model="web.name"></el-input>
-        </el-form-item>
-        <el-form-item label="网址：">
-          <el-input v-model="web.url"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="undo">取 消</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
-      </span>
-    </el-dialog>
   </a>
 </template>
 
 <script>
   import { BASE_URL } from 'config/api'
   import req from 'api/web'
+  import MDialog from 'components/common/m-dialog.vue'
   export default {
     name: 'WebItem',
+    components: {
+      MDialog
+    },
     props: {
       isEditor: Boolean,
       web: Object
     },
     data () {
       return {
-        isShowDialog: false
       }
     },
     methods: {
       editWeb () {
-        this.isShowDialog = true
-        this.$emit('undoDraggable', true)
+        this.$emit('edit', this.web)
       },
       deleteWeb () {
         req('deleteWeb', {id: this.web.id})
@@ -58,14 +42,6 @@
           .catch(err => {
             console.log(err)
           })
-      },
-      undo () {
-        this.isShowDialog = false
-        this.$emit('undoDraggable', false)
-      },
-      submit () {
-        this.isShowDialog = false
-        this.$emit('undoDraggable', false)
       },
       getUrl (url) {
         return url.includes('http') ? url : `${BASE_URL}\\${url}`

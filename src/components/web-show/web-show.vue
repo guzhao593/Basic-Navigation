@@ -5,7 +5,7 @@
       v-model="webData"
       element="div"
       :options="{
-        disabled: (isEditor || isDraggable), // 设置是否可拖动
+        disabled: isEditor, // 设置是否可拖动
         chosenClass: 'choose', // 选择元素的class类名
         ghostClass: 'ghost', // 占位元素的class类名
         animation: 150, // 动画效果
@@ -21,11 +21,29 @@
           :web="web"
           :isEditor="isEditor"
           @againFetch="fetch($route.params)" 
-          @undoDraggable="undoDraggable"
+          @edit="edit"
         >
         </web-item>
       </transition-group>
     </draggable>
+    <m-dialog
+      v-if="isShowDialog"
+      :dialog-visible.sync="isShowDialog"
+      :title="title"
+      :toolbar="toolbar"
+    >
+      <el-form label-width="100px" :model="dialogForm">
+        <el-form-item label="网站名称：">
+          <el-input v-model="dialogForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="网址：">
+          <el-input v-model="dialogForm.url"></el-input>
+        </el-form-item>
+        <el-form-item label="分类：">
+          <el-input v-model="dialogForm.class"></el-input>
+        </el-form-item>
+      </el-form>
+    </m-dialog>
   </div>
 </template>
 
@@ -33,32 +51,34 @@
   import req from 'api/web'
   import draggable from 'vuedraggable'
   import WebItem from './web-item.vue'
+  import MDialog from 'components/common/m-dialog.vue'
 
   export default {
     name: 'WebShow',
     components: {
       draggable,
-      WebItem
+      WebItem,
+      MDialog
     },
     data () {
       return {
         webData: [],
+        title: '',
         isEditor: true,
-        isDraggable: false
-      }
-    },
-    computed: {
-      disabledDraggable () {
-        console.log(this.isEditor, this.isDraggable)
-        return (this.isEditor && this.isDraggable)
-      }
-    },
-    watch: {
-      isEditor () {
-        console.log(this.isEditor, this.isDraggable)
-      },
-      isDraggable () {
-        console.log(this.isEditor, this.isDraggable)
+        isShowDialog: false,
+        dialogForm: {},
+        toolbar: [
+          {
+            type: 'plain',
+            name: '取消',
+            func: () => this.undo()
+          },
+          {
+            type: 'primary',
+            name: '确定',
+            func: () => this.submit()
+          }
+        ]
       }
     },
     created () {
@@ -70,17 +90,25 @@
           this.webData = data
         })
       },
+      edit (dialogForm) {
+        this.isShowDialog = true
+        this.title = '修改网址'
+        this.dialogForm = dialogForm
+      },
       handlerEdit () {
         this.isEditor = !this.isEditor
-      },
-      undoDraggable (bool) {
-        this.isDraggable = bool
       },
       moveEnd (item) {
         console.log('End', item)
       },
       moveStart (item) {
         console.log('move', item)
+      },
+      undo () {
+        this.isShowDialog = false
+      },
+      submit () {
+        this.isShowDialog = false
       }
     }
   }
