@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <el-header style="height: 80px"></el-header>
+    <el-header style="height: 80px">
+      <m-header></m-header>
+    </el-header>
     <el-container>
       <el-aside style="width: 10vw">
         <m-menu></m-menu>
@@ -15,6 +17,7 @@
 
 <script>
   import MMenu from 'components/common/m-menu.vue'
+  import MHeader from 'components/common/m-header.vue'
   import MBreadcrumb from 'components/common/m-breadcrumb.vue'
   export default {
     name: 'home',
@@ -24,6 +27,7 @@
     },
     components: {
       MMenu,
+      MHeader,
       MBreadcrumb
     },
     created () {
@@ -42,7 +46,7 @@
   }
   .el-header{
     height: 120px;
-    background: #666;
+    background: #000;
   }
   .el-main{
     height: calc(100vh - 80px);

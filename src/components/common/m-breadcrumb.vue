@@ -38,8 +38,9 @@
 </script>
 
 <style lang="scss" scoped>
+  @import 'style/var.scss';
   .el-breadcrumb{
-    border-bottom: 1px solid #58bc58;
+    border-bottom: 1px solid $main-color;
     line-height: 30px;
   }
 </style>

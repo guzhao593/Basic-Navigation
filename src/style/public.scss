@@ -1,3 +1,5 @@
+@import './var.scss';
+
 html, body, h1, h2, h3, h4, h5, h6, ul, li, ol, p, div, dl, dt, dd, input, textarea, select, form{
     margin: 0;
     padding: 0;
@@ -50,9 +52,9 @@ em, i { font-style: normal; }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #60bd68;
+  background-color: $main-color;
   &:hover {
-    background-color: #d6dad7;
+    background-color: $main-color;
   }
   // &:horizontal {
   // }
