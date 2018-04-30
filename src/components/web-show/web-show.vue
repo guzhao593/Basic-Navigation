@@ -1,6 +1,7 @@
 <template>
   <div class="web-show">
-    <i class="el-icon-setting setting" @click="handlerEdit()"></i>
+    <i class="el-icon-plus setting add" @click="handlerAdd()"></i>
+    <i class="el-icon-setting setting edit" @click="handlerEdit()"></i>
     <draggable
       v-model="webData"
       element="div"
@@ -65,6 +66,7 @@
         webData: [],
         title: '',
         isEditor: true,
+        isAdd: false,
         isShowDialog: false,
         dialogForm: {},
         toolbar: [
@@ -98,6 +100,12 @@
       handlerEdit () {
         this.isEditor = !this.isEditor
       },
+      handlerAdd () {
+        this.isAdd = true
+        this.isShowDialog = true
+        this.title = '添加网址'
+        this.dialogForm = {}
+      },
       moveEnd (item) {
         console.log('End', item)
       },
@@ -108,6 +116,7 @@
         this.isShowDialog = false
       },
       submit () {
+        this.isAdd = false
         this.isShowDialog = false
       }
     }
@@ -130,15 +139,20 @@
     .setting{
       position: absolute;
       top: -26px;
-      right: 10px;
       font-size: 18px;
       color: #FF5E53;
       transition: 0.5s all;
       &:hover{
         color: rgb(86, 29, 151);
         cursor: pointer;
-        transform: rotate(180deg) scale(1.2);
+        // transform: rotate(180deg);
       }
+    }
+    .edit{
+      right: 10px;
+    }
+    .add{
+      right: 40px;
     }
   }
   
