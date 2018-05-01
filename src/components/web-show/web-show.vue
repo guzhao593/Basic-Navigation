@@ -41,7 +41,12 @@
           <el-input v-model="dialogForm.url"></el-input>
         </el-form-item>
         <el-form-item label="分类：">
-          <el-input v-model="dialogForm.class"></el-input>
+          <!-- <el-input v-model="dialogForm.class"></el-input> -->
+          <m-select
+            v-model="dialogForm.class"
+            :options="$store.state.menu.menuData"
+            :property="menuProperty"
+          ></m-select>
         </el-form-item>
       </el-form>
     </m-dialog>
@@ -53,12 +58,13 @@
   import draggable from 'vuedraggable'
   import WebItem from './web-item.vue'
   import MDialog from 'components/common/m-dialog.vue'
-
+  import MSelect from 'components/common/m-select.vue'
   export default {
     name: 'WebShow',
     components: {
       draggable,
       WebItem,
+      MSelect,
       MDialog
     },
     data () {
@@ -80,7 +86,11 @@
             name: '确定',
             func: () => this.submit()
           }
-        ]
+        ],
+        menuProperty: {
+          label: 'className',
+          value: 'className'
+        }
       }
     },
     created () {
@@ -104,7 +114,7 @@
         this.isAdd = true
         this.isShowDialog = true
         this.title = '添加网址'
-        this.dialogForm = {}
+        this.dialogForm = {class: this.$route.params.className}
       },
       moveEnd (item) {
         console.log('End', item)
