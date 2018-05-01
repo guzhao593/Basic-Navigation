@@ -36,8 +36,13 @@
 	    }
 	  },
 	  computed: {
-	    menuData () {
-	      return this.$store.state.menu.menuData
+	    menuData: {
+	      get () {
+	        return this.$store.state.menu.menuData
+	      },
+	      set (newVal) {
+	        this.$store.commit('menu/GET_MENU', newVal)
+	      }
 	    }
 	  },
 	  created () {

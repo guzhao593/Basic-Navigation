@@ -27,28 +27,13 @@
         </web-item>
       </transition-group>
     </draggable>
-    <m-dialog
+    <web-dialog
       v-if="isShowDialog"
-      :dialog-visible.sync="isShowDialog"
+      :isShowDialog.sync="isShowDialog"
+      :dialogForm="dialogForm"
       :title="title"
       :toolbar="toolbar"
-    >
-      <el-form label-width="100px" :model="dialogForm">
-        <el-form-item label="网站名称：">
-          <el-input v-model="dialogForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="网址：">
-          <el-input v-model="dialogForm.url"></el-input>
-        </el-form-item>
-        <el-form-item label="分类：">
-          <m-select
-            v-model="dialogForm.class"
-            :options="$store.state.menu.menuData"
-            :property="menuProperty"
-          ></m-select>
-        </el-form-item>
-      </el-form>
-    </m-dialog>
+    ></web-dialog>
   </div>
 </template>
 
@@ -58,13 +43,15 @@
   import WebItem from './web-item.vue'
   import MDialog from 'components/common/m-dialog.vue'
   import MSelect from 'components/common/m-select.vue'
+  import WebDialog from './web-dialog.vue'
   export default {
     name: 'WebShow',
     components: {
       draggable,
       WebItem,
       MSelect,
-      MDialog
+      MDialog,
+      WebDialog
     },
     data () {
       return {
@@ -85,11 +72,7 @@
             name: '确定',
             func: () => this.submit()
           }
-        ],
-        menuProperty: {
-          label: 'className',
-          value: 'className'
-        }
+        ]
       }
     },
     created () {
