@@ -1,7 +1,7 @@
 <template>
 	<el-menu
 	model="vertical"
-	:default-active="$route.path"
+	:default-active="$route.fullPath"
 	>
 		<draggable
 			v-model="menuData"
@@ -10,13 +10,13 @@
 			<el-menu-item
 				v-for="(name, idx) in menuData"
 				:key="idx"
-				:index="idx + ''"
+				:index="'/' + name.className"
 			>
 				<router-link :to="'/' + name.className" tag="div">
 					{{name.className}}
 				</router-link>
 			</el-menu-item>
-			<el-menu-item :index="'ueditor'">
+			<el-menu-item :index="'/ueditor'">
 				<router-link to="/ueditor" tag="div">ueditor</router-link>
 			</el-menu-item>
 		</draggable>

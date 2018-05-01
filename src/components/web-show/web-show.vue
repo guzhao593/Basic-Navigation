@@ -41,7 +41,6 @@
           <el-input v-model="dialogForm.url"></el-input>
         </el-form-item>
         <el-form-item label="分类：">
-          <!-- <el-input v-model="dialogForm.class"></el-input> -->
           <m-select
             v-model="dialogForm.class"
             :options="$store.state.menu.menuData"
