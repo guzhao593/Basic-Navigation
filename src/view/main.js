@@ -9,6 +9,8 @@ import App from './App'
 
 import router from 'router'
 
+import store from 'store'
+
 import ElementUI from 'element-ui'
 
 // 加快编译速度：将element-ui的index.css复制到src中
@@ -22,9 +24,11 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 
+
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

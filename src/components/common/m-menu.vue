@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import req from 'api/web'
+	// import req from 'api/web'
 	import draggable from 'vuedraggable'
 	export default {
 	  name: 'MMenu',
@@ -33,17 +33,15 @@
 	  },
 	  data () {
 	    return {
-	      menuData: []
+	    }
+	  },
+	  computed: {
+	    menuData () {
+	      return this.$store.state.menu.menuData
 	    }
 	  },
 	  created () {
-	    req('menu', {menu: 'all'})
-	      .then(data => {
-	        this.menuData = data
-	      })
-	      .catch(err => {
-	        console.log(err, 'err')
-	      })
+	    this.$store.dispatch('menu/GET_MENU')
 	  }
 	}
 </script>
