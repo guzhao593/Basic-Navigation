@@ -4,7 +4,7 @@
       <m-header></m-header>
     </el-header>
     <el-container>
-      <el-aside style="width: 10vw" @scroll.native="getScroll">
+      <el-aside style="width: 12.5vw" @scroll.native="getScroll">
         <m-menu :edit-top="editTop"></m-menu>
       </el-aside>
       <el-main>
