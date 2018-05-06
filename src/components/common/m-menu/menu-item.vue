@@ -4,17 +4,31 @@
       style="padding-left: 0"
     >
       <router-link 
-        :to="'/' + menuData.className"
+        :to="getToLink()"
         tag="div"
         class="web-link"
         :style="{paddingLeft: (35 + level * 15) +'px'}"
         :class="{editor: isEditor}"
       >
-        {{menuData.className}}
-        <div v-if="isEditor" class="icon-container icon-edit-box">
-          <i class="el-icon-edit icon-edit icon" @click="editWeb"></i>
-          <i class="el-icon-circle-plus-outline icon-add icon" @click="addWeb(menuData)"></i>
-          <i class="el-icon-remove-outline icon-close icon" @click="deleteWeb"></i>
+        <span v-if="!isCurrentEdit || !isEditor">{{menuData.className}}</span>
+        <el-input v-model="menuData.className" v-else></el-input>
+        <div 
+          v-if="isEditor" 
+          class="icon-container" 
+          :class="{
+            'icon-edit-box': !isCurrentEdit, 
+            'icon-current-edit': isCurrentEdit
+          }"
+        >
+          <template v-if="!isCurrentEdit">
+            <i class="el-icon-edit icon-edit icon" @click.prevent="editWeb"></i>
+            <i class="el-icon-circle-plus-outline icon-add icon" @click.prevent="addWeb(menuData)"></i>
+            <i class="el-icon-remove-outline icon-close icon" @click.prevent="deleteWeb"></i>
+          </template>
+          <template v-else>
+            <i class="el-icon-circle-check icon-check icon" @click.prevent="saveEdit"></i>
+            <i class="el-icon-circle-close icon-circle-close icon" @click.prevent="undoEdit"></i>
+          </template>
         </div>
         <div v-if="!isEditor && menuData.children" class="icon-container icon-open-box">
           <i 
@@ -42,6 +56,7 @@
 <script>
   import req from 'api/web'
   import draggable from 'vuedraggable'
+  import { cloneData } from 'util'
   export default {
     name: 'MenuItem',
     components: {
@@ -54,29 +69,50 @@
     },
     data () {
       return {
-        isOpen: false
+        isOpen: false,
+        isCurrentEdit: false
+      }
+    },
+    computed: {
+      initMenuData () {
+        return cloneData(this.menuData)
       }
     },
     methods: {
+      getToLink () {
+        return this.isEditor ? '' : '/' + this.getFullPah(this.menuData)
+      },
       editWeb () {
-        this.$emit('edit', this.web)
+        this.isCurrentEdit = true
+      },
+      saveEdit () {
+        this.isCurrentEdit = false
+      },
+      undoEdit () {
+        this.menuData.className = this.initMenuData.className
+        this.isCurrentEdit = false
       },
       addWeb (item) {
         item.children ? item.children.push({
           className: `new${item.children.length + 1}`,
           id: `${item.children.length + 1}`,
-          orderName: `${item.children.length + 1}`
+          orderName: `${item.children.length + 1}`,
+          fullPath: `${this.getFullPah(item) + '/'}new${item.children.length + 1}`
         }) : this.$set(item, 'children', [{
           className: `new1`,
           id: `1`,
-          orderName: `1`
+          orderName: `1`,
+          fullPath: `${this.getFullPah(item) + '/'}new1`
         }])
+      },
+      getFullPah (item) {
+        return item.fullPath ? item.fullPath : item.className
       },
       downWeb () {
         this.isOpen = !this.isOpen
       },
       deleteWeb () {
-        req('deleteWeb', {id: this.web.id})
+        req('deleteWeb', {id: this.menuData.id})
           .then(data => {
             data === 'ok' && this.$emit('againFetch')
           })
@@ -96,6 +132,9 @@
 		height: 100%;
     line-height: 45px;
     padding: 0;
+    & * {
+     vertical-align: baseline; 
+    }
 	}
 	.web-link{
     box-sizing: border-box;
@@ -145,7 +184,11 @@
 				&:hover{
 					color: #f00;
 				}
-			}
+      }
+    }
+    .icon-current-edit{
+      right: -3px;
+      width: 40px;
     }
     .icon-open-box{
       right: -25px;
@@ -165,5 +208,9 @@
 		font-size: 30px;
 		color: #337ab7;
 		text-align: center;
-	}
+  }
+  /deep/ .el-input__inner{
+    height: 30px;
+    line-height: 30px;
+  }
 </style>
