@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import MMenu from 'components/common/m-menu.vue'
+  import MMenu from 'components/common/m-menu/m-menu.vue'
   import MHeader from 'components/common/m-header.vue'
   import MBreadcrumb from 'components/common/m-breadcrumb.vue'
   export default {
