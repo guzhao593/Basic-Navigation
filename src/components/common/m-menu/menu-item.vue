@@ -32,10 +32,10 @@
         </div>
         <div v-if="!isEditor && menuData.children" class="icon-container icon-open-box">
           <i 
-            class="icon-edit icon el-icon-arrow-down"
+            class="icon-edit icon"
             :class="{
-              'el-icon-arrow-down': !isOpen,
-              'el-icon-arrow-up': isOpen
+              'el-icon-arrow-down': !isOpen && menuData.children && menuData.children.length > 0,
+              'el-icon-arrow-up': isOpen && menuData.children && menuData.children.length > 0
             }"
             @click.prevent="downWeb"
           ></i>
