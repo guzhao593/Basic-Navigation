@@ -42,14 +42,20 @@
         </div>
       </router-link>
       <ul v-if="menuData.children" v-show="isOpen || isEditor">
-        <menu-item
-          v-for="(cel, key) in menuData.children" 
-          :key="key"
-          :menuData="cel"
-          :is-editor="isEditor"
-          :level="level + 1"
-          @deleteChildren="deleteChildren"
-        ></menu-item>
+        <draggable
+          v-model="menuData.children"
+			    :options="{group: 'menuData'}"
+          element="div"
+        >
+          <menu-item
+            v-for="(cel, key) in menuData.children" 
+            :key="key"
+            :menuData="cel"
+            :is-editor="isEditor"
+            :level="level + 1"
+            @deleteChildren="deleteChildren"
+          ></menu-item>
+        </draggable>
       </ul>
     </el-menu-item>
 </template>
@@ -115,7 +121,7 @@
       },
       deleteWeb (item) {
         if (item.children && item.children.length) {
-          this.$confirm({text: '该菜单包含子菜单,确认要一起删除！'})
+          this.$confirm('该菜单包含子菜单,确认要一起删除！')
             .then(() => {
               this.$emit('deleteChildren', item)
             })

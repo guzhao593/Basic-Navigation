@@ -6,6 +6,7 @@
 		<draggable
 			v-model="menuData"
 			element="div"
+			:options="{group: 'menuData'}"
   	>
 			<menu-item 
 				v-for="(item, key) in menuData"
