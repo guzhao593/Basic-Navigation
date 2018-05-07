@@ -23,7 +23,7 @@
           <template v-if="!isCurrentEdit">
             <i class="el-icon-edit icon-edit icon" @click.prevent="editWeb"></i>
             <i class="el-icon-circle-plus-outline icon-add icon" @click.prevent="addWeb(menuData)"></i>
-            <i class="el-icon-remove-outline icon-close icon" @click.prevent="deleteWeb"></i>
+            <i class="el-icon-remove-outline icon-close icon" @click.prevent="deleteWeb(menuData)"></i>
           </template>
           <template v-else>
             <i class="el-icon-circle-check-outline icon-check icon" @click.prevent="saveEdit"></i>
@@ -48,13 +48,14 @@
           :menuData="cel"
           :is-editor="isEditor"
           :level="level + 1"
+          @deleteChildren="deleteChildren"
         ></menu-item>
       </ul>
     </el-menu-item>
 </template>
 
 <script>
-  import req from 'api/web'
+  // import req from 'api/web'
   import draggable from 'vuedraggable'
   import { cloneData } from 'util'
   export default {
@@ -109,14 +110,26 @@
       downWeb () {
         this.isOpen = !this.isOpen
       },
-      deleteWeb () {
-        req('deleteWeb', {id: this.menuData.id})
-          .then(data => {
-            data === 'ok' && this.$emit('againFetch')
-          })
-          .catch(err => {
-            console.log(err)
-          })
+      deleteChildren (child) {
+        this.menuData.children.splice(this.menuData.children.findIndex((item) => item.className === child.className), 1)
+      },
+      deleteWeb (item) {
+        if (item.children && item.children.length) {
+          this.$confirm({text: '该菜单包含子菜单,确认要一起删除！'})
+            .then(() => {
+              this.$emit('deleteChildren', item)
+            })
+            .catch(() => false)
+        } else {
+          this.$emit('deleteChildren', item)
+        }
+        // req('deleteWeb', {id: this.menuData.id})
+        //   .then(data => {
+        //     data === 'ok' && this.$emit('againFetch')
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
       }
     }
   }

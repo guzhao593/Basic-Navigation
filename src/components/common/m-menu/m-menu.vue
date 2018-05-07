@@ -12,6 +12,7 @@
 				:key="key"
 				:is-editor="isEditor" 
 				:menuData="item" 
+        @deleteChildren="deleteChildren"
 				:level="0"
 			></menu-item>
 		</draggable>
@@ -60,7 +61,13 @@
 	  },
 	  methods: {
 	    handlerEdit () {
+	      if (document.querySelector('.el-menu .el-input')) {
+	        return this.$message({type: 'warning', message: '请保存正在编辑的数据！'})
+	      }
 	      this.isEditor = !this.isEditor
+	    },
+	    deleteChildren (child) {
+	      this.menuData.splice(this.menuData.findIndex((item) => item.id === child.id), 1)
 	    },
 	    handlerAdd () {
 	      this.menuData.push({
