@@ -18,7 +18,11 @@
 		<transition>
 			<div class="edit-bar" :style="{top: editTop}">
 				<i class="el-icon-circle-plus-outline setting add" @click="handlerAdd" v-if="isEditor"></i>
-				<i class="el-icon-setting setting edit" @click="handlerEdit"></i>
+				<i 
+					class="setting edit" 
+					:class="{'el-icon-setting': !isEditor, 'el-icon-circle-check-outline': isEditor}"
+					@click="handlerEdit"
+				></i>
 			</div>
 		</transition>
   </el-menu>

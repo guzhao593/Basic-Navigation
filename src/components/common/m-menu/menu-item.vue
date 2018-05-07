@@ -26,8 +26,8 @@
             <i class="el-icon-remove-outline icon-close icon" @click.prevent="deleteWeb"></i>
           </template>
           <template v-else>
-            <i class="el-icon-circle-check icon-check icon" @click.prevent="saveEdit"></i>
-            <i class="el-icon-circle-close icon-circle-close icon" @click.prevent="undoEdit"></i>
+            <i class="el-icon-circle-check-outline icon-check icon" @click.prevent="saveEdit"></i>
+            <i class="el-icon-circle-close-outline icon-circle-close icon" @click.prevent="undoEdit"></i>
           </template>
         </div>
         <div v-if="!isEditor && menuData.children" class="icon-container icon-open-box">
@@ -70,12 +70,8 @@
     data () {
       return {
         isOpen: false,
-        isCurrentEdit: false
-      }
-    },
-    computed: {
-      initMenuData () {
-        return cloneData(this.menuData)
+        isCurrentEdit: false,
+        initMenuData: cloneData(this.menuData)
       }
     },
     methods: {
@@ -86,6 +82,7 @@
         this.isCurrentEdit = true
       },
       saveEdit () {
+        this.initMenuData.className = this.menuData.className
         this.isCurrentEdit = false
       },
       undoEdit () {
@@ -93,6 +90,7 @@
         this.isCurrentEdit = false
       },
       addWeb (item) {
+        if (this.level >= 2) return this.$message({type: 'warning', message: '菜单只能嵌套三层！'})
         item.children ? item.children.push({
           className: `new${item.children.length + 1}`,
           id: `${item.children.length + 1}`,
@@ -142,8 +140,9 @@
 		color: #337ab7;
 		font-size: 12px;
 		float: left;
-		width: 100%;
-		padding: 0;
+    width: 100%;
+    padding: 0;
+    padding-right: 60px;
 		min-height: 45px;
 		line-height: 45px;
 		text-align: left;
@@ -185,6 +184,16 @@
 					color: #f00;
 				}
       }
+      .icon-check{
+        &:hover{
+          color: $main-color;
+        }
+      }
+      .icon-circle-close{
+        &:hover{
+          color: #f00;
+        }
+      }
     }
     .icon-current-edit{
       right: -3px;
@@ -197,7 +206,7 @@
 	.editor{
 		width: 100%;
 		border-bottom: 0 none;
-		padding-right: 40px;
+		padding-right: 60px;
 		&:hover{
 			color: #337ab7;
 			background: #ddd;
@@ -209,7 +218,7 @@
 		color: #337ab7;
 		text-align: center;
   }
-  /deep/ .el-input__inner{
+  .el-input /deep/ .el-input__inner{
     height: 30px;
     line-height: 30px;
   }
