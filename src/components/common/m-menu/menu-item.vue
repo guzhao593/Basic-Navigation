@@ -6,6 +6,7 @@
       <router-link 
         :to="getToLink()"
         tag="div"
+        @click.native="downWeb"
         class="web-link"
         :style="{paddingLeft: (35 + level * 15) +'px'}"
         :class="{editor: isEditor}"
@@ -17,12 +18,13 @@
           class="icon-container" 
           :class="{
             'icon-edit-box': !isCurrentEdit, 
-            'icon-current-edit': isCurrentEdit
+            'icon-current-edit': isCurrentEdit,
+            'icon-leaf': level > 1
           }"
         >
           <template v-if="!isCurrentEdit">
             <i class="el-icon-edit icon-edit icon" @click.prevent="editWeb"></i>
-            <i class="el-icon-circle-plus-outline icon-add icon" @click.prevent="addWeb(menuData)"></i>
+            <i v-if="level <= 1" class="el-icon-circle-plus-outline icon-add icon" @click.prevent="addWeb(menuData)"></i>
             <i class="el-icon-remove-outline icon-close icon" @click.prevent="deleteWeb(menuData)"></i>
           </template>
           <template v-else>
@@ -37,7 +39,7 @@
               'el-icon-arrow-down': !isOpen && menuData.children && menuData.children.length > 0,
               'el-icon-arrow-up': isOpen && menuData.children && menuData.children.length > 0
             }"
-            @click.prevent="downWeb"
+            @click.native="downWeb"
           ></i>
         </div>
       </router-link>
@@ -83,7 +85,7 @@
     },
     methods: {
       getToLink () {
-        return this.isEditor ? '' : '/' + this.getFullPah(this.menuData)
+        return (this.isEditor || (this.menuData.children && this.menuData.children.length)) ? '' : '/' + this.getFullPah(this.menuData)
       },
       editWeb () {
         this.isCurrentEdit = true
@@ -173,6 +175,10 @@
 			.icon-edit-box{
 				right: 5px;
 			}
+      .icon-leaf{
+        width: 40px;
+        right: -3px;
+      }
 		}
 		.icon-container{
 			transition: all 0.3s;
