@@ -41,3 +41,33 @@ export function maxLetterNumber (param) {
   console.log(Object.values(newObj))
   return {number: newArr.length, max: Object.values(newObj).length ? Math.max.apply(null, Object.values(newObj)) : 0}
 }
+
+/**
+ * 把扁平化的数据转为成结构化的数据
+ * @param {*} data []
+ * @param {*} config{id: 数据里的string类型,pid: 数据里的父id string类型,children: 生成结果中子节点的字段名 string类型}
+ */
+export const jsonTree = function (data, config) {
+  let id = config.id || 'id'
+  let pid = config.pid || 'pid'
+  let children = config.children || 'children'
+
+  let idMap = []
+  let jsonTree = []
+  let newData = JSON.parse(JSON.stringify(data))
+
+  newData.forEach(v => {
+    idMap[v[id]] = v
+  })
+
+  newData.forEach(v => {
+    let parent = idMap[v[pid]]
+    if (parent) {
+      !parent[children] && (parent[children] = [])
+      parent[children].push(v)
+    } else {
+      jsonTree.push(v)
+    }
+  })
+  return jsonTree
+}
