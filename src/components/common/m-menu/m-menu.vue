@@ -12,7 +12,8 @@
 				v-for="(item, key) in menuData"
 				:key="key"
 				:is-editor="isEditor" 
-				:menuData="item" 
+				:menuData="item"
+				:parent="item" 
         @deleteChildren="deleteChildren"
 				:level="0"
 			></menu-item>
@@ -72,9 +73,12 @@
 	    },
 	    handlerAdd () {
 	      this.menuData.push({
-	        className: 'newWeb',
-	        orderName: '99',
-	        id: this.menuData.length
+	        className: '',
+	        orderNumber: this.menuData.length + 1,
+	        parentId: '',
+	        selfId: Date.now(),
+	        route: '',
+	        redirect: null
 	      })
 	    }
 	  }

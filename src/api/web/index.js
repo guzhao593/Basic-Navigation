@@ -9,6 +9,10 @@ const config = {
     url: '/index.php',
     method: 'get'
   },
+  addMenu: {
+    url: '/index.php',
+    method: 'get'
+  },
   deleteWeb: {
     url: '/index.php',
     method: 'get'

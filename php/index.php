@@ -18,6 +18,12 @@
     $name = isset($_GET['name']) ? $_GET['name'] : '';
     $url = isset($_GET['url']) ? $_GET['url'] : '';
     $id = isset($_GET['id']) ? $_GET['id'] : '';
+    $pClassName = isset($_GET['className']) ? $_GET['className'] : '';
+    $pRoute = isset($_GET['route']) ? $_GET['route'] : '';
+    $pOrderNumber = isset($_GET['orderNumber']) ? $_GET['orderNumber'] : '';
+    $pParentId = isset($_GET['parentId']) ? $_GET['parentId'] : '';
+    $pSelfId = isset($_GET['selfId']) ? $_GET['selfId'] : '';
+    $pRedirect = isset($_GET['redirect']) ? $_GET['redirect'] : '';
     if($id != ''){
         $sql = "delete from web where id='$id'";
         if ($conn->query($sql) === TRUE) {
@@ -58,6 +64,15 @@
         $row = $result->fetch_all(MYSQLI_ASSOC);
         $result->close();
         echo json_encode($row,JSON_UNESCAPED_UNICODE);
+        $conn->close();
+    }
+    if($pSelfId != ''){
+        $sql = "insert into class (selfId, parentId, className, orderNumber, redirect, route) values ('$pSelfId', '$pParentId', '$pClassName', '$pOrderNumber', '$pRedirect', '$pRoute')";
+        if ($conn->query($sql) === TRUE) {
+                echo "ok";
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         $conn->close();
     }
 ?>

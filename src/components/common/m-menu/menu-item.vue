@@ -11,7 +11,7 @@
         :style="{paddingLeft: (35 + level * 15) +'px'}"
         :class="{editor: isEditor}"
       >
-        <span v-if="!isCurrentEdit || !isEditor">{{menuData.className}}</span>
+        <span v-if="isShowInput()">{{menuData.className}}</span>
         <el-input v-model="menuData.className" v-else></el-input>
         <div 
           v-if="isEditor" 
@@ -55,6 +55,7 @@
             :menuData="cel"
             :is-editor="isEditor"
             :level="level + 1"
+            :parent="menuData"
             @deleteChildren="deleteChildren"
           ></menu-item>
         </draggable>
@@ -63,7 +64,7 @@
 </template>
 
 <script>
-  // import req from 'api/web'
+  import req from 'api/web'
   import draggable from 'vuedraggable'
   import { cloneData } from 'util'
   export default {
@@ -74,7 +75,13 @@
     props: {
       isEditor: Boolean,
       level: Number,
-      menuData: Object
+      menuData: Object,
+      parent: {
+        type: Object,
+        default () {
+          return null
+        }
+      }
     },
     data () {
       return {
@@ -90,30 +97,50 @@
       editWeb () {
         this.isCurrentEdit = true
       },
+      isShowInput () {
+        if (this.menuData.className === '' && !this.isCurrentEdit) {
+          this.isCurrentEdit = true
+          return false
+        }
+        return !this.isCurrentEdit || !this.isEditor
+      },
       saveEdit () {
+        if (this.menuData.className === '') return this.$message({type: 'warning', message: '输入不能为空'})
         this.initMenuData.className = this.menuData.className
+        this.menuData.route = this.level ? `${this.getFullPah(this.parent) + '/' + this.menuData.className}` : this.menuData.className
+        req('addMenu', this.menuData)
+          .then(res => {
+            if (res) {
+              this.$message({type: 'susscess', message: '保存成功'})
+            }
+          })
         this.isCurrentEdit = false
       },
       undoEdit () {
+        if (this.menuData.className === '') return this.deleteWeb(this.menuData)
         this.menuData.className = this.initMenuData.className
         this.isCurrentEdit = false
       },
       addWeb (item) {
         if (this.level >= 2) return this.$message({type: 'warning', message: '菜单只能嵌套三层！'})
         item.children ? item.children.push({
-          className: `new${item.children.length + 1}`,
-          id: `${item.children.length + 1}`,
-          orderName: `${item.children.length + 1}`,
-          fullPath: `${this.getFullPah(item) + '/'}new${item.children.length + 1}`
+          className: ``,
+          orderNumber: item.children.length + 1,
+          route: ``,
+          parentId: item.selfId,
+          selfId: Date.now(),
+          redirect: null
         }) : this.$set(item, 'children', [{
-          className: `new1`,
-          id: `1`,
-          orderName: `1`,
-          fullPath: `${this.getFullPah(item) + '/'}new1`
+          className: ``,
+          orderNumber: 1,
+          route: ``,
+          parentId: item.selfId,
+          selfId: Date.now(),
+          redirect: null
         }])
       },
       getFullPah (item) {
-        return item.fullPath ? item.fullPath : item.className
+        return item.route ? item.route : item.className
       },
       downWeb () {
         this.isOpen = !this.isOpen
