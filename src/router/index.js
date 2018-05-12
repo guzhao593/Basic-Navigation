@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from 'components/home.vue'
 import WebShow from 'components/web-show/web-show.vue'
 import UEditor from 'components/ueditor.vue'
+import Table from 'components/table.vue'
 
 Vue.use(Router)
 
@@ -15,12 +16,17 @@ const router = new Router({
       component: Home,
       children: [
         {
-          path: '/ueditor',
+          path: 'ueditor',
           name: 'ueditor',
           component: UEditor
         },
         {
-          path: '/:className',
+          path: 'table',
+          name: 'table',
+          component: Table
+        },
+        {
+          path: ':className',
           name: 'web',
           component: WebShow
         }
