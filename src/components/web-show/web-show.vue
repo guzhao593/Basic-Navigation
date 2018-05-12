@@ -1,7 +1,14 @@
 <template>
   <div class="web-show">
     <i class="el-icon-plus setting add" @click="handlerAdd()"></i>
-    <i class="el-icon-setting setting edit" @click="handlerEdit()"></i>
+    <i 
+      class="setting edit" 
+      :class="{
+        'el-icon-setting': !isEditor,
+        'el-icon-circle-check-outline': isEditor
+      }"
+      @click="handlerEdit()"
+    ></i>
     <draggable
       v-model="webData"
       element="div"
@@ -20,7 +27,7 @@
           v-for="(web, index) of webData"
           :key="index"
           :web="web"
-          :isEditor="isEditor"
+          :isEditor="!isEditor"
           @againFetch="fetch($route.params)" 
           @edit="edit"
         >
@@ -57,7 +64,7 @@
       return {
         webData: [],
         title: '',
-        isEditor: true,
+        isEditor: false,
         isAdd: false,
         isShowDialog: false,
         dialogForm: {},
@@ -108,8 +115,17 @@
         this.isShowDialog = false
       },
       submit () {
+        req('addMenu', this.dialogForm)
+          .then((res) => {
+            this.$message({type: 'success', message: '添加成功'})
+            this.threeElementOpration()
+          })
+          .catch()
         this.isAdd = false
         this.isShowDialog = false
+      },
+      threeElementOpration () {
+        this.dialogForm.class === this.$route.params.className ? this.fetch(this.$route.params) : this.$router.push(this.dialogForm.class)
       }
     }
   }

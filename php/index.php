@@ -24,7 +24,7 @@
     $pParentId = isset($_GET['parentId']) ? $_GET['parentId'] : '';
     $pSelfId = isset($_GET['selfId']) ? $_GET['selfId'] : '';
     $pRedirect = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-    if($id != ''){
+    if($id != '' && $class == ''){
         $sql = "delete from web where id='$id'";
         if ($conn->query($sql) === TRUE) {
                 echo "ok";
