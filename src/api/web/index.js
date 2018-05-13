@@ -1,8 +1,8 @@
 import request from 'api'
 
 const config = {
-  web: {
-    url: '/index.php',
+  getWebsite: {
+    url: '/get-website',
     method: 'get'
   },
   deleteWeb: {

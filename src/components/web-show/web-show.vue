@@ -87,7 +87,7 @@
     },
     methods: {
       fetch ({className}) {
-        req('web', {class: className}).then(data => {
+        req('getWebsite', {class: className}).then(data => {
           this.webData = data
         })
       },
