@@ -1,4 +1,4 @@
-import req from 'api/web'
+import req from 'api/menu'
 import {jsonTree} from 'util'
 
 export default {
@@ -14,7 +14,7 @@ export default {
   },
   actions: {
     GET_MENU ({commit}, payload) {
-      req('menu', {menu: 'all'})
+      req('getMenu')
         .then(data => {
           let newData = jsonTree(data, {
             id: 'selfId',

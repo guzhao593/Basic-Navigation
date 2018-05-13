@@ -1,13 +1,17 @@
 import request from 'api'
 
 const config = {
-  web: {
-    url: '/index.php',
+  getMenu: {
+    url: '/get-menu',
     method: 'get'
   },
-  deleteWeb: {
-    url: '/index.php',
-    method: 'get'
+  addMenu: {
+    url: '/add-menu',
+    method: 'post'
+  },
+  deleteMenu: {
+    url: '/delete-menu',
+    method: 'delete'
   }
 }
 // 利用请求的参数再转给request, 做到解藕

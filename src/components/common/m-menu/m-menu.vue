@@ -34,6 +34,8 @@
 <script>
 	import draggable from 'vuedraggable'
 	import MenuItem from './menu-item.vue'
+	import { getCurrentMenuAllSelfId } from 'util'
+	import req from 'api/menu'
 	export default {
 	  name: 'MMenu',
 	  components: {
@@ -68,8 +70,17 @@
 	      }
 	      this.isEditor = !this.isEditor
 	    },
-	    deleteChildren (child) {
-	      this.menuData.splice(this.menuData.findIndex((item) => item.id === child.id), 1)
+	    deleteChildren (menu) {
+	      req('deleteMenu', {allselfId: getCurrentMenuAllSelfId(menu)})
+	        .then(data => {
+	          if (data.affectedRows) {
+	            this.$message({type: 'success', message: '删除成功'})
+	            this.$store.dispatch('menu/GET_MENU')
+	          } else {
+	            this.$message({type: 'error', message: '删除失败'})
+	          }
+	        })
+	        .catch(error => console.log(error))
 	    },
 	    handlerAdd () {
 	      this.menuData.push({

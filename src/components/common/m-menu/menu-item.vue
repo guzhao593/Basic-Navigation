@@ -64,9 +64,9 @@
 </template>
 
 <script>
-  import req from 'api/web'
+  import req from 'api/menu'
   import draggable from 'vuedraggable'
-  import { cloneData } from 'util'
+  import { cloneData, getCurrentMenuAllSelfId } from 'util'
   export default {
     name: 'MenuItem',
     components: {
@@ -87,6 +87,7 @@
       return {
         isOpen: false,
         isCurrentEdit: false,
+        selfIdArray: [],
         initMenuData: cloneData(this.menuData)
       }
     },
@@ -145,8 +146,17 @@
       downWeb () {
         this.isOpen = !this.isOpen
       },
-      deleteChildren (child) {
-        this.menuData.children.splice(this.menuData.children.findIndex((item) => item.className === child.className), 1)
+      deleteChildren (menu) {
+        req('deleteMenu', {allselfId: getCurrentMenuAllSelfId(menu)})
+          .then(data => {
+            if (data.affectedRows) {
+              this.$message({type: 'success', message: '删除成功'})
+              this.$store.dispatch('menu/GET_MENU')
+            } else {
+              this.$message({type: 'error', message: '删除失败'})
+            }
+          })
+          .catch(error => console.log(error))
       },
       deleteWeb (item) {
         if (item.children && item.children.length) {
@@ -158,13 +168,6 @@
         } else {
           this.$emit('deleteChildren', item)
         }
-        // req('deleteWeb', {id: this.menuData.id})
-        //   .then(data => {
-        //     data === 'ok' && this.$emit('againFetch')
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
       }
     }
   }

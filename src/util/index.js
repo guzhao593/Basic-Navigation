@@ -71,3 +71,13 @@ export const jsonTree = function (data, config) {
   })
   return jsonTree
 }
+
+export const getCurrentMenuAllSelfId = (menu, selfIdArray = []) => {
+  selfIdArray.push(menu.selfId)
+  if (menu.children && menu.children.length) {
+    menu.children.forEach(item => {
+      getCurrentMenuAllSelfId(item, selfIdArray)
+    })
+  }
+  return selfIdArray
+}
