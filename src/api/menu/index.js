@@ -12,6 +12,10 @@ const config = {
   deleteMenu: {
     url: '/delete-menu',
     method: 'delete'
+  },
+  updateMenu: {
+    url: '/update-menu',
+    method: 'put'
   }
 }
 // 利用请求的参数再转给request, 做到解藕

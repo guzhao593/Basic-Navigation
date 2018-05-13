@@ -109,13 +109,23 @@
         if (this.menuData.className === '') return this.$message({type: 'warning', message: '输入不能为空'})
         this.initMenuData.className = this.menuData.className
         this.menuData.route = this.level ? `${this.getFullPah(this.parent) + '/' + this.menuData.className}` : this.menuData.className
-        req('addMenu', this.menuData)
+        if (this.menuData.status === 'add') {
+          this.reqFunc('addMenu', '添加')
+        } else {
+          this.reqFunc('updateMenu', '修改')
+        }
+        this.isCurrentEdit = false
+      },
+      reqFunc (reqAddress, status) {
+        req(reqAddress, this.menuData)
           .then(res => {
-            if (res) {
-              this.$message({type: 'susscess', message: '保存成功'})
+            if (res.affectedRows) {
+              this.$message({type: 'susscess', message: `${status}成功`})
+              this.$store.dispatch('menu/GET_MENU')
+            } else {
+              this.$message({type: 'error', message: `${status}失败`})
             }
           })
-        this.isCurrentEdit = false
       },
       undoEdit () {
         if (this.menuData.className === '') return this.deleteWeb(this.menuData)
@@ -124,12 +134,14 @@
       },
       addWeb (item) {
         if (this.level >= 2) return this.$message({type: 'warning', message: '菜单只能嵌套三层！'})
+        item.status = 'add'
         item.children ? item.children.push({
           className: ``,
           orderNumber: item.children.length + 1,
           route: ``,
           parentId: item.selfId,
           selfId: Date.now(),
+          status: 'add',
           redirect: null
         }) : this.$set(item, 'children', [{
           className: ``,
@@ -137,6 +149,7 @@
           route: ``,
           parentId: item.selfId,
           selfId: Date.now(),
+          status: 'add',
           redirect: null
         }])
       },
