@@ -8,6 +8,14 @@ const config = {
   deleteWeb: {
     url: '/delete-website',
     method: 'delete'
+  },
+  addWebsite: {
+    url: '/add-website',
+    method: 'post'
+  },
+  updateWebsite: {
+    url: '/update-website',
+    method: 'put'
   }
 }
 // 利用请求的参数再转给request, 做到解藕

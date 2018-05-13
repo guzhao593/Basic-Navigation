@@ -92,6 +92,7 @@
         })
       },
       edit (dialogForm) {
+        this.isAdd = false
         this.isShowDialog = true
         this.title = '修改网址'
         this.dialogForm = dialogForm
@@ -115,10 +116,21 @@
         this.isShowDialog = false
       },
       submit () {
-        req('addMenu', this.dialogForm)
+        if (this.isAdd) {
+          this.reqFunc('addWebsite', '添加')
+        } else {
+          this.reqFunc('updateWebsite', '修改')
+        }
+      },
+      reqFunc (reqAddress, status) {
+        req(reqAddress, this.dialogForm)
           .then((res) => {
-            this.$message({type: 'success', message: '添加成功'})
-            this.threeElementOpration()
+            if (res.affectedRows) {
+              this.$message({type: 'success', message: `${status}成功`})
+              this.threeElementOpration()
+            } else {
+              this.$message({type: 'error', message: `${status}失败`})
+            }
           })
           .catch()
         this.isAdd = false
