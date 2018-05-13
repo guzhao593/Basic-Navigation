@@ -6,12 +6,12 @@ const config = {
     method: 'get'
   },
   menu: {
-    url: '/index.php',
+    url: '/get-menu',
     method: 'get'
   },
   addMenu: {
-    url: '/index.php',
-    method: 'get'
+    url: '/add-menu',
+    method: 'post'
   },
   deleteWeb: {
     url: '/index.php',

@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8585'
+export const BASE_URL = 'http://localhost:593'
 
 export const TIMEOUT_MILLISECONDS = 1000
 
