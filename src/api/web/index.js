@@ -6,8 +6,8 @@ const config = {
     method: 'get'
   },
   deleteWeb: {
-    url: '/index.php',
-    method: 'get'
+    url: '/delete-website',
+    method: 'delete'
   }
 }
 // 利用请求的参数再转给request, 做到解藕

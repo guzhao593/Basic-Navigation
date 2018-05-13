@@ -37,7 +37,12 @@
       deleteWeb () {
         req('deleteWeb', {id: this.web.id})
           .then(data => {
-            data === 'ok' && this.$emit('againFetch')
+            if (data.affectedRows) {
+              this.$message({type: 'success', message: '删除成功'})
+              this.$emit('againFetch')
+            } else {
+              this.$message({type: 'error', message: '删除失败'})
+            }
           })
           .catch(err => {
             console.log(err)
