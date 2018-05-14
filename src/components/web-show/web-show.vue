@@ -88,7 +88,7 @@
       fetch ({className}) {
         req('getWebsite', {class: className}).then(data => {
           this.webData = new Array(data.length)
-          data.forEach(item => (this.webData[item.orderNo] = item))
+          data.forEach(item => this.$set(this.webData, item.orderNo, item))
         })
       },
       edit (dialogForm) {
@@ -104,7 +104,7 @@
         this.isAdd = true
         this.isShowDialog = true
         this.title = '添加网址'
-        this.dialogForm = {class: this.$route.params.className}
+        this.dialogForm = {class: this.$route.params.className, orderNo: this.webData.length}
       },
       moveEnd ({oldIndex, newIndex}) {
         req('updateWebsiteOrderNO', {webData: this.webData})
