@@ -62,8 +62,8 @@
     color: #337ab7;
     font-size: 14px;
     float: left;
-    width: 160px;
-    margin: 5px 5px;
+    width: 180px;
+    margin: 6px 5px;
     padding: 0 0 0 10px;
     min-height: 30px;
     line-height: 30px;

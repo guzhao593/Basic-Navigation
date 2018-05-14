@@ -202,7 +202,7 @@
     box-sizing: border-box;
 		display: block;
 		color: #337ab7;
-		font-size: 12px;
+		font-size: 14px;
 		float: left;
     width: 100%;
     padding: 0;
