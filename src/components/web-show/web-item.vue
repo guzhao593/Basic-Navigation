@@ -60,7 +60,7 @@
   .web-link{
     display: block;
     color: #337ab7;
-    font-size: 12px;
+    font-size: 14px;
     float: left;
     width: 160px;
     margin: 5px 5px;

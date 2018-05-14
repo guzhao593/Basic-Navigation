@@ -190,7 +190,7 @@
 	@import 'style/var.scss';
 	@import 'style/mixin.scss';
 	.el-menu-item{
-		font-size: 12px;
+		font-size: 14px;
 		height: 100%;
     line-height: 45px;
     padding: 0;
