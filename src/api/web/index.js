@@ -16,6 +16,10 @@ const config = {
   updateWebsite: {
     url: '/update-website',
     method: 'put'
+  },
+  updateWebsiteOrderNO: {
+    url: '/update-website-orderNO',
+    method: 'post'
   }
 }
 // 利用请求的参数再转给request, 做到解藕

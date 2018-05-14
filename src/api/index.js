@@ -50,21 +50,22 @@ export default (function request () {
             data.timestamp = new Date().valueOf()
           }
         }
+        // params 是get,delete请求的请求数据的参数名  data 则是post, put 请求的请求数据的参数名
+        newConfig.params = data
+      } else {
+        newConfig.url = newConfig.url.replace(/\{([\d\w_]+)\}/g, (word, $1) => {
+          let res = data[$1]
+          delete data[$1]
+          return res
+        })
+        newConfig.data = data
       }
-      // params 是get,delete请求的请求数据的参数名  data 则是post, put 请求的请求数据的参数名
-      newConfig.params = data
-    } else {
-      newConfig.url = newConfig.url.replace(/\{([\d\w_]+)\}/g, (word, $1) => {
-        let res = data[$1]
-        delete data[$1]
-        return res
-      })
-      newConfig.data = data
     }
     if (isCancel) {
       // 通过传递一个 executor 函数到 CancelToken 的构造函数来创建 cancel token
       newConfig.cancelToken = new CancelToken((c) => { cancel = c })
     }
+    console.log(newConfig)
     return fetch(newConfig)
   }
 })()

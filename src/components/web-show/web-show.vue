@@ -19,7 +19,6 @@
         animation: 150, // 动画效果
         dragClass: 'drag' // 拖动元素的class类名
       }"
-      @start="moveStart"
       @end="moveEnd"
     >
       <transition-group>
@@ -88,7 +87,8 @@
     methods: {
       fetch ({className}) {
         req('getWebsite', {class: className}).then(data => {
-          this.webData = data
+          this.webData = new Array(data.length)
+          data.forEach(item => (this.webData[item.orderNo] = item))
         })
       },
       edit (dialogForm) {
@@ -106,12 +106,17 @@
         this.title = '添加网址'
         this.dialogForm = {class: this.$route.params.className}
       },
-      moveEnd (item) {
-        console.log('End', item)
+      moveEnd ({oldIndex, newIndex}) {
+        req('updateWebsiteOrderNO', {webData: this.webData})
+          .then(data => {
+            if (data) {
+              this.fetch(this.$route.params)
+            }
+          })
       },
-      moveStart (item) {
-        console.log('move', item)
-      },
+      // moveStart (item) {
+      //   console.log('move', item)
+      // },
       undo () {
         this.isShowDialog = false
       },
