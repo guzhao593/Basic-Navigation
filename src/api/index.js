@@ -65,7 +65,6 @@ export default (function request () {
       // 通过传递一个 executor 函数到 CancelToken 的构造函数来创建 cancel token
       newConfig.cancelToken = new CancelToken((c) => { cancel = c })
     }
-    console.log(newConfig)
     return fetch(newConfig)
   }
 })()

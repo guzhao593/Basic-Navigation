@@ -114,9 +114,6 @@
             }
           })
       },
-      // moveStart (item) {
-      //   console.log('move', item)
-      // },
       undo () {
         this.isShowDialog = false
       },
