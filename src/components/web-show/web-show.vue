@@ -45,6 +45,7 @@
 
 <script>
   import req from 'api/web'
+  import { selectSort } from 'util/sortMethods'
   import draggable from 'vuedraggable'
   import WebItem from './web-item.vue'
   import MDialog from 'components/common/m-dialog.vue'
@@ -87,8 +88,7 @@
     methods: {
       fetch ({className}) {
         req('getWebsite', {class: className}).then(data => {
-          this.webData = new Array(data.length)
-          data.forEach(item => this.$set(this.webData, item.orderNo, item))
+          this.webData = selectSort(data, 'orderNo')
         })
       },
       edit (dialogForm) {
