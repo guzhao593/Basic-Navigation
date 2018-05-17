@@ -1,14 +1,32 @@
 <template>
   <el-form>
-    <el-form-item style="width: 35vw">
-      <el-input type="text" v-model="word" @keydown.enter.native="submit">
+    <el-form-item 
+      :style="{width: searchWidth}" 
+      @mouseover.native="mouseover" 
+      @mouseout.native="mouseout"
+    >
+      <el-input 
+        type="text" 
+        ref="input"
+        v-model="word" 
+        :class="{'active': isActive}"
+        @keydown.enter.native="submit"
+        @focus="focus"
+        @blur="blur"
+      >
+        <i
+          slot="prefix"
+          class="el-input__icon el-icon-search"
+        ></i>
         <i 
           v-if="word !== ''"
           slot="suffix" 
           class="el-input__icon el-icon-error"
-          @click="clear" 
+          @click="clear"
+          @mousedown="mousedown"
+          @mouseup="mouseup"
         ></i>
-        <el-select v-model="searchClass" slot="prepend">
+        <!-- <el-select v-model="searchClass" slot="prepend">
           <el-option
             v-for="(item, idx) of searchClassOptions"
             :key="idx"
@@ -16,7 +34,7 @@
             :value="item.value"
           ></el-option>
         </el-select>
-        <el-button slot="append" @click="submit">搜索</el-button>
+        <el-button slot="append" @click="submit">搜索</el-button> -->
       </el-input>
     </el-form-item>
   </el-form>
@@ -45,13 +63,16 @@
             value: 'inside'
           }
         ],
-        word: ''
+        word: '',
+        searchWidth: '10vw',
+        focusStatus: false,
+        isActive: false,
+        isClear: false
       }
     },
     methods: {
       submit () {
         if (this.searchClass === 'baidu') {
-          console.log(1111)
           window.open(`http://baidu.com/s?word=${this.word}`)
         } else {
           req('')
@@ -59,6 +80,35 @@
       },
       clear () {
         this.word = ''
+        this.$refs.input.focus()
+      },
+      focus () {
+        this.isActive = true
+        this.focusStatus = true
+        this.searchWidth = '25vw'
+      },
+      blur () {
+        if (!this.isClear) {
+          this.focusStatus = false
+          this.isActive = this.searchWidth = '10vw'
+          this.isActive = false
+        }
+      },
+      mouseover () {
+        this.searchWidth = '25vw'
+        this.isActive = true
+      },
+      mouseout () {
+        if (!this.isClear && !this.focusStatus) {
+          this.searchWidth = '10vw'
+          this.isActive = false
+        }
+      },
+      mousedown () {
+        this.isClear = true
+      },
+      mouseup () {
+        this.isClear = false
       }
     }
   }
@@ -68,16 +118,15 @@
   @import 'style/var.scss';
   .el-form-item{
     margin-bottom: 0px;
+    transition: all .5s;
     /deep/ .el-input__inner{
-      height: 30px;
-      line-height: 30px;
-      border-color: #dcdfe6 !important;
-    }
-    /deep/ .el-select .el-input{
-      width: 80px;
-      .el-input__inner{
-        border: 0 none;
-      }
+      height: 26px;
+      line-height: 26px;
+      border: 1px solid #323232;
+      color: #fff;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 0;
     }
     .el-input__icon{
       line-height: 30px;
@@ -86,5 +135,8 @@
         color: $main-color;
       }
     }
+  }
+  .el-form-item .active /deep/ .el-input__inner, .el-input__inner:focus{
+    border-color: #F09B22 !important;
   }
 </style>

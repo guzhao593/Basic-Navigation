@@ -1,6 +1,6 @@
 <template>
   <div class="m-header">
-    <h1>基&nbsp;&nbsp;本&nbsp;&nbsp;导&nbsp;&nbsp;航</h1>
+    <h3>Basic Navigation</h3>
     <m-search class="m-search"></m-search>
   </div>
 </template>
@@ -23,13 +23,15 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    h1{
-      height: 80px;
-      line-height: 80px;
-      color: #2cb314;
+    h3{
+      min-height: 60px;
+      width: 260px;
+      line-height: 60px;
+      color: #fff;
       font-size: 24px;
-      font-weight: bold;
-      flex: auto;
+      font-weight: normal;
+      background: #F09B22;
+      text-indent: .5em;
     }
     .m-search{
       flex: auto;

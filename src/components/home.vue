@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header style="height: 80px">
+    <el-header style="height: 60px">
       <m-header></m-header>
     </el-header>
     <el-container>
@@ -67,8 +67,9 @@
 		}
   }
   .el-header{
-    height: 120px;
-    background: #000;
+    height: 50px;
+    background: #323232;
+    padding: 0;
   }
   .el-main{
     height: calc(100vh - 80px);
