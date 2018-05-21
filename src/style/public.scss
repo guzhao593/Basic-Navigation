@@ -37,8 +37,8 @@ em, i { font-style: normal; }
 
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-    width: 3px;
-    height: 3px
+    width: 0px;
+    height: 0px
 }
 
 ::-webkit-scrollbar-button {
@@ -46,12 +46,12 @@ em, i { font-style: normal; }
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: 10px;
+    border-radius: 0px;
     background-color: transparent
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 0px;
   background-color: $main-color;
   &:hover {
     background-color: $main-color;

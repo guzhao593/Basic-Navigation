@@ -2,6 +2,8 @@
 	<el-menu
 	model="vertical"
 	:default-active="$route.fullPath"
+	text-color="#fff"
+	active-text-color="#ffd04b"
 	>
 		<draggable
 			v-model="menuData"
@@ -102,6 +104,7 @@
 	.el-menu{
 		border-right: none;
 		position: relative;
+		// background: $main-color;
 		.edit-bar{
 			transition: all .3s;
 			position: absolute;

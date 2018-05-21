@@ -158,6 +158,8 @@
   }
   .web-show {
     position: relative;
+    height: calc(100vh - 102px);
+    overflow-y: scroll;
     .setting{
       position: absolute;
       top: -26px;

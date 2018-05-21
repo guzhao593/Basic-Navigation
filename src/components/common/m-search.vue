@@ -89,6 +89,7 @@
       },
       blur () {
         if (!this.isClear) {
+          this.word = ''
           this.focusStatus = false
           this.isActive = this.searchWidth = '10vw'
           this.isActive = false

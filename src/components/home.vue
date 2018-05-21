@@ -4,8 +4,8 @@
       <m-header></m-header>
     </el-header>
     <el-container>
-      <el-aside style="min-width: 12.5vw" @scroll.native="getScroll">
-        <m-menu :edit-top="editTop"></m-menu>
+      <el-aside style="min-width: 260px" @scroll.native="getScroll">
+        <b-menu :edit-top="editTop"></b-menu>
       </el-aside>
       <el-main>
         <m-breadcrumb></m-breadcrumb>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import MMenu from 'components/common/m-menu/m-menu.vue'
+  import BMenu from 'components/common/m-menu/b-menu.vue'
   import MHeader from 'components/common/m-header.vue'
   import MBreadcrumb from 'components/common/m-breadcrumb.vue'
   export default {
@@ -27,7 +27,7 @@
       }
     },
     components: {
-      MMenu,
+      BMenu,
       MHeader,
       MBreadcrumb
     },
@@ -46,9 +46,8 @@
   .el-aside{
     min-width: 100px;
     max-width: 200px;
-    height: calc(100vh - 80px);
-    background-color: #fff;
-    border-right: 1px solid #e6e6e6;
+    height: calc(100vh - 60px);
+    background-color: $main-color;
     position: relative;
 		.edit-bar{
 			position: absolute;
@@ -72,7 +71,7 @@
     padding: 0;
   }
   .el-main{
-    height: calc(100vh - 80px);
+    height: calc(100vh - 60px);
     padding: 5px 10px;
   }
 </style>
