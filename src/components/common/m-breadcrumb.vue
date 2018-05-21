@@ -1,11 +1,11 @@
 <template>
-  <el-breadcrumb separator-class="el-icon-arrow-right">
+  <el-breadcrumb  separator="/">
     <el-breadcrumb-item
       v-for="(item, idx) of breadcrumbData"
       :key="idx"
       :to="getToLink(item, idx)"
     >
-      {{item.path ? $route.path.replace('/', '') : item.name}}
+      {{item.name === 'web' ? $route.params.className : item.name}}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -18,7 +18,11 @@
     },
     data () {
       return {
-        breadcrumbData: this.$route.matched
+      }
+    },
+    computed: {
+      breadcrumbData () {
+        return this.$route.matched
       }
     },
     methods: {
@@ -38,9 +42,22 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'style/var.scss';
   .el-breadcrumb{
-    border-bottom: 1px solid $main-color;
-    line-height: 30px;
+    padding: 12px 10px 12px 20px;
+    margin-bottom: 20px;
+    list-style: none;
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    background: #fff;
+    line-height: 20px;
+    /deep/ .el-breadcrumb__inner.is-link{
+      font-weight: normal;
+      color: #337ab7;
+      &:hover{
+        text-decoration: underline;
+        color: #23527c;
+      }
+    }
   }
 </style>

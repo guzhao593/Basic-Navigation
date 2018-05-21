@@ -72,6 +72,7 @@
   }
   .el-main{
     height: calc(100vh - 60px);
-    padding: 5px 10px;
+    padding: 0px;
+    background: #EDEDED;
   }
 </style>

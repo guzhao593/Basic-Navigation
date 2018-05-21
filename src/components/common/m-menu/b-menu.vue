@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="/website/javascript"
+    :default-active="$route.fullPath"
     background-color="#323232"
     text-color="#fff"
     active-text-color="#ffd04b"

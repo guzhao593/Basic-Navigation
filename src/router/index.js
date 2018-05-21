@@ -18,7 +18,7 @@ const router = new Router({
       children: [
         {
           path: 'website',
-          name: 'website',
+          name: '收藏网址',
           redirect: '/website/javascript',
           component: Blank,
           children: [
@@ -31,7 +31,7 @@ const router = new Router({
         },
         {
           path: 'practice',
-          name: 'practice',
+          name: '练习作品',
           redirect: '/practice/table',
           component: Blank,
           children: [

@@ -158,7 +158,7 @@
   }
   .web-show {
     position: relative;
-    height: calc(100vh - 102px);
+    height: calc(100vh - 126px);
     overflow-y: scroll;
     .setting{
       position: absolute;
@@ -169,7 +169,6 @@
       &:hover{
         color: rgb(86, 29, 151);
         cursor: pointer;
-        // transform: rotate(180deg);
       }
     }
     .edit{
