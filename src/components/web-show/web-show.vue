@@ -158,8 +158,15 @@
   }
   .web-show {
     position: relative;
-    height: calc(100vh - 126px);
+    height: calc(100vh - 146px);
     overflow-y: scroll;
+    margin: 0 20px 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: #fff;
+    box-sizing: border-box;
     .setting{
       position: absolute;
       top: -26px;

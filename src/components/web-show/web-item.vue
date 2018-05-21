@@ -58,11 +58,12 @@
 <style lang="scss" scoped>
   @import 'style/mixin.scss';
   .web-link{
+    flex: 1;
     display: block;
-    color: #337ab7;
+    color: #286090;
     font-size: 14px;
     float: left;
-    width: 180px;
+    width: 160px;
     margin: 6px 5px;
     padding: 0 0 0 10px;
     min-height: 30px;
@@ -71,8 +72,8 @@
     position: relative;
     @include text-ellipsis;
     &:hover{
-      text-decoration: underline;
-      color: #FF5E53;
+      // text-decoration: underline;
+      color: #F09B22;
       // background-color: #eff;
     }
     .icon{
