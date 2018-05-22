@@ -1,6 +1,6 @@
 <template>
   <div class="web-show">
-    <i class="el-icon-plus setting add" @click="handlerAdd()"></i>
+    <!-- <i class="el-icon-plus setting add" @click="handlerAdd()"></i> -->
     <i 
       class="setting edit" 
       :class="{
@@ -164,11 +164,13 @@
     padding: 10px;
     background: #fff;
     box-sizing: border-box;
+    border-top-right-radius: 10px;
+    box-shadow: 5px 5px 5px #666;
     .setting{
       position: absolute;
-      top: -26px;
+      top: 0px;
       font-size: 18px;
-      color: #FF5E53;
+      color: green;
       transition: 0.5s all;
       &:hover{
         color: rgb(86, 29, 151);
@@ -176,7 +178,7 @@
       }
     }
     .edit{
-      right: 10px;
+      right: 0px;
     }
     .add{
       right: 40px;
