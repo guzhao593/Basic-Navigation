@@ -62,7 +62,8 @@ export default {
     .collapse-toggle{
       text-align: center;
       .icon{
-        font-size: 60px;
+        line-height: 60px;
+        font-size: 45px;
         color: #868686;
         &:hover{
           color: $button-color;
