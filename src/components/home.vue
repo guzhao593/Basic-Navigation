@@ -5,7 +5,7 @@
     </el-header>
     <el-container>
       <el-aside  :style="{width: collapseWidth}" @scroll.native="getScroll">
-        <b-menu :edit-top="editTop" :isCollapse="isCollapse"></b-menu>
+        <b-menu :edit-top="editTop"></b-menu>
       </el-aside>
       <el-main>
         <m-breadcrumb></m-breadcrumb>
@@ -56,6 +56,7 @@
     max-width: 260px;
     height: calc(100vh - 60px);
     background-color: $main-color;
+    transition: all .5s;
     position: relative;
 		.edit-bar{
 			position: absolute;
