@@ -162,9 +162,6 @@
     overflow-y: scroll;
     margin: 0 20px 20px;
     padding: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     background: #fff;
     box-sizing: border-box;
     .setting{

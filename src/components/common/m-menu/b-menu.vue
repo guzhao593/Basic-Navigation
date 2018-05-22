@@ -1,6 +1,7 @@
 <template>
   <el-menu
     :default-active="$route.fullPath"
+    :collapse="isCollapse"
     background-color="#323232"
     text-color="#fff"
     active-text-color="#ffd04b"
@@ -17,6 +18,9 @@
     name: 'BMenu',
     components: {
       BMenuItem
+    },
+    props: {
+      isCollapse: Boolean
     },
     data () {
       return {}

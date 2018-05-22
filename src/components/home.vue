@@ -1,11 +1,11 @@
 <template>
   <el-container>
     <el-header style="height: 60px">
-      <m-header></m-header>
+      <m-header @collapseToggle="collapseToggle"></m-header>
     </el-header>
     <el-container>
-      <el-aside style="min-width: 260px" @scroll.native="getScroll">
-        <b-menu :edit-top="editTop"></b-menu>
+      <el-aside  :style="{width: collapseWidth}" @scroll.native="getScroll">
+        <b-menu :edit-top="editTop" :isCollapse="isCollapse"></b-menu>
       </el-aside>
       <el-main>
         <m-breadcrumb></m-breadcrumb>
@@ -23,7 +23,8 @@
     name: 'home',
     data () {
       return {
-        editTop: '0px'
+        editTop: '0px',
+        isCollapse: false
       }
     },
     components: {
@@ -33,9 +34,17 @@
     },
     created () {
     },
+    computed: {
+      collapseWidth () {
+        return this.isCollapse ? '0px' : '260px'
+      }
+    },
     methods: {
       getScroll (event) {
         this.editTop = event.target.scrollTop + 'px'
+      },
+      collapseToggle () {
+        this.isCollapse = !this.isCollapse
       }
     }
   }
@@ -44,8 +53,7 @@
 <style scoped lang="scss">
 	@import 'style/var.scss';
   .el-aside{
-    min-width: 100px;
-    max-width: 200px;
+    max-width: 260px;
     height: calc(100vh - 60px);
     background-color: $main-color;
     position: relative;
@@ -63,7 +71,7 @@
 			.setting{
 				margin-bottom: 5px;
 			}
-		}
+    }
   }
   .el-header{
     height: 50px;

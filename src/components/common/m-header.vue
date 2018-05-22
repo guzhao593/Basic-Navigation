@@ -1,6 +1,16 @@
 <template>
   <div class="m-header">
     <h3>Basic Navigation</h3>
+    <div class="collapse-toggle">
+      <i 
+        class="icon el-icon-caret-left"
+        :class="{
+          'el-icon-caret-left': isCollapse,
+          'el-icon-caret-right': !isCollapse
+        }" 
+        @click="collapseToggle"
+      ></i>
+    </div>
     <m-search class="m-search"></m-search>
   </div>
 </template>
@@ -13,12 +23,21 @@ export default {
     MSearch
   },
   data () {
-    return {}
+    return {
+      isCollapse: false
+    }
+  },
+  methods: {
+    collapseToggle () {
+      this.isCollapse = !this.isCollapse
+      this.$emit('collapseToggle')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  @import 'style/var.scss';
   .m-header{
     display: flex;
     flex-direction: row;
@@ -39,6 +58,16 @@ export default {
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
+    }
+    .collapse-toggle{
+      text-align: center;
+      .icon{
+        font-size: 60px;
+        color: #868686;
+        &:hover{
+          color: $button-color;
+        }
+      }
     }
   }
   

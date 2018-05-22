@@ -18,6 +18,9 @@ import 'style/element-theme/index.css'
 
 import 'style/public.scss'
 
+import 'assets/fonts/iconfont.css'
+
+import 'assets/fonts/iconfont.js'
 
 Vue.config.productionTip = false
 
