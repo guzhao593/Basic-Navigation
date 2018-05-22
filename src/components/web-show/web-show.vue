@@ -1,14 +1,17 @@
 <template>
   <div class="web-show">
     <!-- <i class="el-icon-plus setting add" @click="handlerAdd()"></i> -->
-    <i 
-      class="setting edit" 
-      :class="{
-        'el-icon-setting': !isEditor,
-        'el-icon-circle-check-outline': isEditor
-      }"
-      @click="handlerEdit()"
-    ></i>
+    <div class="setting">
+      <i 
+        class="edit" 
+        :class="{
+          'el-icon-setting': !isEditor,
+          'el-icon-circle-check-outline': isEditor
+        }"
+        @click="handlerEdit()"
+      ></i>
+    </div>
+    
     <draggable
       v-model="webData"
       element="div"
@@ -169,11 +172,17 @@
     .setting{
       position: absolute;
       top: 0px;
+      right: 0px;
+      background: #f09b22;
+      border-bottom-left-radius: 10px;
+      height: 24px;
+      width: 22px;
       font-size: 18px;
-      color: green;
+      text-align: center;
+      color: white;
       transition: 0.5s all;
       &:hover{
-        color: rgb(86, 29, 151);
+        color: #d9ffd0;
         cursor: pointer;
       }
     }
