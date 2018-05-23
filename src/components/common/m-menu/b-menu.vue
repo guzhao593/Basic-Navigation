@@ -6,9 +6,9 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     unique-opened
-    router
+    :router="isEditStatus"
   >
-    <b-menu-item v-model="menuData"></b-menu-item>
+    <b-menu-item v-model="menuData" @edit="edit"></b-menu-item>
   </el-menu>
 </template>
 
@@ -23,7 +23,9 @@
       isCollapse: Boolean
     },
     data () {
-      return {}
+      return {
+        isEditStatus: true
+      }
     },
     computed: {
       menuData: {
@@ -39,6 +41,9 @@
       this.$store.dispatch('menu/GET_MENU')
     },
     methods: {
+      edit () {
+        this.isEditStatus = !this.isEditStatus
+      }
     }
   }
 </script>
