@@ -9,7 +9,17 @@
     <span>{{web.name}}</span>
     <template v-if="!isEditor">
       <i class="el-icon-edit icon-edit icon" @click="editWeb"></i>
-      <i class="el-icon-circle-close icon-close icon" @click="deleteWeb"></i>
+      <el-popover
+        v-model="showPopover"
+        placement="top"
+      >
+        <p>确定删除吗？</p>
+        <div style="text-align: right; margin: 0">
+          <el-button size="mini" type="text" @click="showPopover = false">取消</el-button>
+          <el-button type="primary" size="mini" @click="deleteWeb">确定</el-button>
+        </div>
+        <i slot="reference" class="el-icon-circle-close icon-close icon" @click="showPopover = true"></i>
+      </el-popover>
     </template>
   </a>
 </template>
@@ -29,6 +39,7 @@
     },
     data () {
       return {
+        showPopover: false
       }
     },
     methods: {
