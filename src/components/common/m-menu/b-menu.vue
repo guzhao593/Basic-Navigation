@@ -8,16 +8,16 @@
     unique-opened
     :router="!$store.state.menu.isEditMenuStatus"
   >
-    <b-menu-item v-model="menuData"></b-menu-item>
+    <b-menu-submenu v-model="menuData"></b-menu-submenu>
   </el-menu>
 </template>
 
 <script>
-  import BMenuItem from './b-menu-item.vue'
+  import BMenuSubmenu from './b-menu-submenu.vue'
   export default {
     name: 'BMenu',
     components: {
-      BMenuItem
+      BMenuSubmenu
     },
     props: {
       isCollapse: Boolean
