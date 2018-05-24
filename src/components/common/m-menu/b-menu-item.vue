@@ -4,38 +4,42 @@
       v-for="(item, key) of value"
       :key="key"
     >
-      <el-submenu :index="item.route" v-if="item.children">
+      <el-submenu 
+        v-if="item.children" 
+        :index="item.route"
+        @mouseover.native="mouseoverMenu(item)" 
+        @mouseout.native="mouseoutMenu(item)"
+      >
         <template slot="title">
           <i :class="item.icon"></i>
           <span>{{item.className}}</span>
-          <el-popover
-            v-if="item.route === '/website'"
-            v-model="showPopover"
-            placement="bottom-end"
-            width="200"
-            title="添加网址分类"
-          >
-            <el-form :model="websiteClass" :rules="rules" ref="websiteForm">
-              <el-form-item prop="className" :style="{'margin-bottom': valid ? '12px' : '22px' }">
-                <el-input v-model="websiteClass.className" size="small"></el-input>
-              </el-form-item>
-            </el-form>
-            <el-row style="text-align: right; margin: 0px;">
-              <el-button size="small" @click="cancel">取消</el-button>
-              <el-button size="small" type="primary" @click="confirm(item)">确定</el-button>
-            </el-row>
+          <template v-if="item.route === '/website' && (showEditIcon || showPopover || isEditMenuStatus)">
+            <el-popover
+              v-model="showPopover"
+              placement="bottom-end"
+              width="200"
+              title="添加网址分类"
+            >
+              <el-form :model="websiteClass" :rules="rules" ref="websiteForm">
+                <el-form-item prop="className" :style="{'margin-bottom': valid ? '12px' : '22px' }">
+                  <el-input v-model="websiteClass.className" size="small"></el-input>
+                </el-form-item>
+              </el-form>
+              <el-row style="text-align: right; margin: 0px;">
+                <el-button size="small" @click="cancel">取消</el-button>
+                <el-button size="small" type="primary" @click="confirm(item)">确定</el-button>
+              </el-row>
+              <i 
+                slot="reference"
+                class="icon el-icon-circle-plus-outline"
+                @click.stop="addMenu"
+              ></i>
+            </el-popover>
             <i 
-              slot="reference"
-              class="icon el-icon-circle-plus-outline"
-              :style="{dispaly: activeStatus ? 'block' : 'none'}" 
-              @click.stop="addMenu"
+              class="icon el-icon-setting"
+              @click.stop="editMenu"
             ></i>
-          </el-popover>
-          <i 
-            v-if="item.route === '/website'"
-            class="icon el-icon-setting"
-            @click.stop="editMenu"
-          ></i>
+          </template>
         </template>
         <b-menu-item 
           v-model="item.children" 
@@ -89,12 +93,12 @@ export default {
       valid: true,
       activeStatus: false,
       editCurrentStatus: false,
-      editCurrentMenuClassName: ''
+      editCurrentMenuClassName: '',
+      showEditIcon: false
     }
   },
   computed: {
     isEditMenuStatus () {
-      console.log(this.$store)
       return this.$store.state.menu.isEditMenuStatus
     }
   },
@@ -105,7 +109,6 @@ export default {
     addMenu () {
       // 清除校验
       this.$refs.websiteForm[0].clearValidate()
-      this.activeStatus = true
     },
     confirm (item) {
       this.$refs.websiteForm[0].validate(valid => {
@@ -163,6 +166,16 @@ export default {
       } else {
         this.$message({type: 'error', message: `${status}失败`})
       }
+    },
+    mouseoverMenu (item) {
+      if (item.route === '/website') {
+        this.showEditIcon = true
+      }
+    },
+    mouseoutMenu (item) {
+      if (item.route === '/website') {
+        this.showEditIcon = false
+      }
     }
   }
 }
@@ -177,9 +190,6 @@ export default {
   /deep/ .el-submenu__title{
     transition: all .5s;
     .icon{
-      display: none;
-    }
-    &:hover .icon{
       display: block;
       top: 50%;
       margin-top: -8px;
