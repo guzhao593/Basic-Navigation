@@ -50,20 +50,21 @@
       <el-menu-item :index="item.route" v-else>
         <i :class="item.icon"></i>
         <template>
-          <span slot="title" v-if="editCurrentStatus  && editCurrentMenuClassName === item.className">
-            <el-input v-model="item.className" size="small" style="width: 70%"></el-input>
+          <span slot="title" v-if="editCurrentStatus && editCurrentMenuClassName === item.selfId">
+            <el-input v-model="item.className" size="small" style="width: 63%"></el-input>
           </span>
           <span slot="title" v-else>{{item.className}}</span>
         </template>
         <template v-if="editStatus">
           <i 
-            class="icon"
-            :class="{
-              'el-icon-edit': !editCurrentStatus || editCurrentMenuClassName !== item.className,
-              'el-icon-circle-check-outline': editCurrentStatus  && editCurrentMenuClassName === item.className
-            }" 
+            v-if="!editCurrentStatus || editCurrentMenuClassName !== item.selfId"
+            class="icon el-icon-edit"
             @click.stop="editCurrentMenu(item)"
           ></i>
+          <template v-if="editCurrentStatus && editCurrentMenuClassName === item.selfId">
+            <i class="icon el-icon-circle-check-outline" @click.stop="saveEdit(item)"></i>
+            <i class="icon el-icon-circle-close-outline" @click.stop="undoEdit(item)"></i>
+          </template>
           <i class="icon el-icon-delete" @click.stop="deleteCurrentMenu(item)"></i>
         </template>
       </el-menu-item>
@@ -139,19 +140,28 @@ export default {
       this.showPopover = false
     },
     editCurrentMenu (item) {
-      this.editCurrentMenuClassName = item.className
-      if (this.editCurrentStatus) {
-        if (item.className === '') {
-          this.$message.warning('名称不能为空')
-          return
-        }
-        item.route = `${item.route.slice(0, item.route.lastIndexOf('/'))}/${item.className}`
-        req('updateMenu', item)
-          .then(res => {
-            this.handlerAfterRequest(res, '修改')
-          })
+      this.editCurrentMenuClassName = item.selfId
+      this.originMenuClassName = item.className
+      this.editCurrentStatus = true
+    },
+    saveEdit (item) {
+      if (item.className === '') {
+        this.$message.warning('名称不能为空')
+        return
       }
-      this.editCurrentStatus = !this.editCurrentStatus
+
+      if (item.className === this.originMenuClassName) return (this.editCurrentStatus = false)
+
+      item.route = `${item.route.slice(0, item.route.lastIndexOf('/'))}/${item.className}`
+      req('updateMenu', item)
+        .then(res => {
+          this.handlerAfterRequest(res, '修改')
+        })
+      this.editCurrentStatus = false
+    },
+    undoEdit (item) {
+      item.className = this.originMenuClassName
+      this.editCurrentStatus = false
     },
     deleteCurrentMenu (item) {
       req('deleteMenu', item)
@@ -217,11 +227,17 @@ export default {
       font-size: 16px;
       position: absolute;
     }
-    .el-icon-edit, .el-icon-circle-check-outline{
-      right: 40px;
+    .el-icon-edit{
+      right: 35px;
+    }
+    .el-icon-circle-close-outline{
+      right: 35px;
+    }
+    .el-icon-circle-check-outline{
+      right: 55px;
     }
     .el-icon-delete{
-      right: 20px;
+      right: 15px;
     }
   }
 </style>
