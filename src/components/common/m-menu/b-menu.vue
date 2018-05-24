@@ -6,9 +6,9 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     unique-opened
-    :router="isEditStatus"
+    :router="!$store.state.menu.isEditMenuStatus"
   >
-    <b-menu-item v-model="menuData" @edit="edit"></b-menu-item>
+    <b-menu-item v-model="menuData"></b-menu-item>
   </el-menu>
 </template>
 
@@ -39,11 +39,6 @@
     },
     created () {
       this.$store.dispatch('menu/GET_MENU')
-    },
-    methods: {
-      edit () {
-        this.isEditStatus = !this.isEditStatus
-      }
     }
   }
 </script>

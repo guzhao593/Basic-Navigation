@@ -40,7 +40,7 @@
         <b-menu-item 
           v-model="item.children" 
           class="inter-menu" 
-          :editStatus="item.route === '/website' ? isEdit : false"
+          :editStatus="item.route === '/website' ? isEditMenuStatus : false"
         ></b-menu-item>
       </el-submenu>
       <el-menu-item :index="item.route" v-else>
@@ -60,7 +60,7 @@
             }" 
             @click.stop="editCurrentMenu(item)"
           ></i>
-          <i class="icon el-icon-delete" @click.stop="deleteCurrentMenu"></i>
+          <i class="icon el-icon-delete" @click.stop="deleteCurrentMenu(item)"></i>
         </template>
       </el-menu-item>
     </div>
@@ -87,16 +87,20 @@ export default {
       },
       showPopover: false,
       valid: true,
-      isEdit: false,
       activeStatus: false,
       editCurrentStatus: false,
       editCurrentMenuClassName: ''
     }
   },
+  computed: {
+    isEditMenuStatus () {
+      console.log(this.$store)
+      return this.$store.state.menu.isEditMenuStatus
+    }
+  },
   methods: {
     editMenu () {
-      this.isEdit = !this.isEdit
-      this.$emit('edit')
+      this.$store.commit('menu/CHANGE_EDIT_STATUS')
     },
     addMenu () {
       // 清除校验
@@ -117,12 +121,7 @@ export default {
           })
           req('addMenu', this.websiteClass)
             .then(res => {
-              if (res.affectedRows) {
-                this.$message({type: 'success', message: `${status}成功`})
-                this.$store.dispatch('menu/GET_MENU')
-              } else {
-                this.$message({type: 'error', message: `${status}失败`})
-              }
+              this.handlerAfterRequest(res, '新增')
             })
             .finally(() => {
               this.showPopover = false
@@ -146,17 +145,25 @@ export default {
         item.route = `${item.route.slice(0, item.route.lastIndexOf('/'))}/${item.className}`
         req('updateMenu', item)
           .then(res => {
-            if (res.affectedRows) {
-              this.$message({type: 'success', message: `${status}成功`})
-              this.$store.dispatch('menu/GET_MENU')
-            } else {
-              this.$message({type: 'error', message: `${status}失败`})
-            }
+            this.handlerAfterRequest(res, '修改')
           })
       }
       this.editCurrentStatus = !this.editCurrentStatus
     },
-    deleteCurrentMenu () {}
+    deleteCurrentMenu (item) {
+      req('deleteMenu', item)
+        .then(res => {
+          this.handlerAfterRequest(res, '删除')
+        })
+    },
+    handlerAfterRequest (res, status) {
+      if (res.affectedRows) {
+        this.$message({type: 'success', message: `${status}成功`})
+        this.$store.dispatch('menu/GET_MENU')
+      } else {
+        this.$message({type: 'error', message: `${status}失败`})
+      }
+    }
   }
 }
 </script>

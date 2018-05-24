@@ -4,12 +4,16 @@ import {jsonTree} from 'util'
 export default {
   namespaced: 'menu',
   state: {
-    menuData: []
+    menuData: [],
+    isEditMenuStatus: false
   },
   getters: {},
   mutations: {
     GET_MENU (state, payload) {
       state.menuData = payload
+    },
+    CHANGE_EDIT_STATUS (state, payload) {
+      state.isEditMenuStatus = !state.isEditMenuStatus
     }
   },
   actions: {
