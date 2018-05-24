@@ -11,7 +11,7 @@ import router from 'router'
 
 import store from 'store'
 
-import ElementUI from 'element-ui'
+import Element from 'element-ui'
 
 // 加快编译速度：将element-ui的index.css复制到src中
 import 'style/element-theme/index.css'
@@ -24,10 +24,20 @@ import 'assets/fonts/iconfont.js'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
+Vue.use(Element)
 
-
-
+Element.Button.props.size = {
+  type: String,
+  default: 'small'
+}
+Element.Select.props.size = {
+  type: String,
+  default: 'small'
+}
+Element.Input.props.size = {
+  type: String,
+  default: 'small'
+}
 new Vue({
   el: '#app',
   router,

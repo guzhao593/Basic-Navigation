@@ -14,7 +14,7 @@
       <el-form-item label="分类：">
         <m-select
           v-model="dialogForm.class"
-          :options="$store.state.menu.menuData"
+          :options="classOptions"
           :property="menuProperty"
         ></m-select>
       </el-form-item>
@@ -49,6 +49,11 @@
     watch: {
       showDialog () {
         this.$emit('update:isShowDialog', this.showDialog)
+      }
+    },
+    computed: {
+      classOptions () {
+        return this.$store.state.menu.menuData.find(item => item.route === '/website').children
       }
     }
   }

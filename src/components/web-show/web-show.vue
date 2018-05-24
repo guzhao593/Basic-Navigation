@@ -8,7 +8,7 @@
           'el-icon-setting': !isEditor,
           'el-icon-circle-check-outline': isEditor
         }"
-        @click="handlerEdit()"
+        @click="handlerEdit"
       ></i>
     </div>
     
@@ -34,6 +34,14 @@
           @edit="edit"
         >
         </web-item>
+        <div 
+          v-if="isEditor"
+          key="addWebsite" 
+          class="addWebsite"
+          @click="handlerAdd"
+        >
+          <i class="icon el-icon-plus"></i>
+        </div>
       </transition-group>
     </draggable>
     <web-dialog
@@ -193,5 +201,24 @@
       right: 40px;
     }
   }
-  
+  .addWebsite{
+    color: #286090;
+    font-size: 20px;
+    font-weight: 700;
+    float: left;
+    width: 160px;
+    margin: 6px 5px;
+    padding: 0 0 0 10px;
+    min-height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: relative;
+    background-color: #eee;
+    border:1px dotted #ccc;
+    &:hover{
+      border-color: #666;
+      color: #337ab7;
+      text-decoration: none;
+    }
+  }
 </style>

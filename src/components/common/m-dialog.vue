@@ -11,6 +11,7 @@
         :key="idx"
         @click="handlerMethods(item.func)"
         :type="item.type"
+        size="small"
       >
         {{item.name}}
       </el-button>
@@ -54,13 +55,13 @@
     /deep/ .el-dialog{
       border-radius: 8px;
       .el-dialog__header{
-        padding: 10px;
+        padding: 0px;
         text-align: center;
         line-height: 40px;
         border-radius: 8px 8px 0 0;
         background-color: $bg-color;
         .el-dialog__headerbtn{
-          top: 20px;
+          top: 13px;
         }
       }
       .el-dialog__body{

@@ -5,6 +5,7 @@
     class="web-link"
     :class="{editor: !isEditor}"
   >
+    <slot></slot>
     <span>{{web.name}}</span>
     <template v-if="!isEditor">
       <i class="el-icon-edit icon-edit icon" @click="editWeb"></i>
