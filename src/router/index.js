@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import Home from 'components/home.vue'
 import Blank from 'components/blank.vue'
 import WebShow from 'components/web-show/web-show.vue'
-import UEditor from 'components/ueditor.vue'
-import Table from 'components/table.vue'
+import UEditor from 'components/practice/ueditor.vue'
+import Table from 'components/practice/table.vue'
+import Echarts from 'components/practice/echarts.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ const router = new Router({
               path: 'table',
               name: 'table',
               component: Table
+            },
+            {
+              path: 'echarts',
+              name: 'echarts',
+              component: Echarts
             }
           ]
         }

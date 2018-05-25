@@ -44,7 +44,8 @@ module.exports = {
       'api': resolve('src/api'),
       'config': resolve('config'),
       'store': resolve('src/store'),
-      'assets': resolve('src/assets')
+      'assets': resolve('src/assets'),
+      'static': resolve('static')
     }
   },
   module: {

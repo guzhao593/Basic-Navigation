@@ -13,6 +13,7 @@
         <template slot="title">
           <i :class="item.icon"></i>
           <span>{{item.className}}</span>
+
           <template v-if="item.route === '/website' && (showEditIcon || showPopover || isEditMenuStatus)">
             <el-popover
               v-model="showPopover"
@@ -40,12 +41,15 @@
               @click.stop="editMenu"
             ></i>
           </template>
+
         </template>
+
         <b-menu-submenu 
           v-model="item.children" 
           class="inter-menu" 
           :editStatus="item.route === '/website' ? isEditMenuStatus : false"
         ></b-menu-submenu>
+        
       </el-submenu>
       <b-menu-item 
         v-else
