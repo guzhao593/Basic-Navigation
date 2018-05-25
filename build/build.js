@@ -3,13 +3,15 @@ require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
-import ora from "ora";
-import rm from "rimraf";
-import { join } from "path";
-import { red, cyan, yellow } from "chalk";
-import webpack from "webpack";
-import { build } from "../config";
-import webpackConfig from "./webpack.prod.conf";
+var ora = require('ora')
+var rm = require('rimraf')
+var join = require('path').join
+var red = require('chalk').red
+var cyan = require('chalk').cyan
+var yellow = require('chalk').yellow
+var webpack = require('webpack')
+var build = require('../config').build
+var webpackConfig = require('./webpack.prod.conf')
 
 const spinner = ora('building for production...')
 spinner.start()

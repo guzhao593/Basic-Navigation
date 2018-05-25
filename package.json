@@ -1,7 +1,7 @@
 {
-  "name": "my-common-web",
+  "name": "basic-navigation",
   "version": "1.0.0",
-  "description": "my common web",
+  "description": "basic-navigation",
   "author": "zhaojingjing <guzhao593@163.com>",
   "private": true,
   "scripts": {
