@@ -90,6 +90,7 @@ export default {
 
 <style lang="scss" scoped>
   .el-menu-item{
+    font-size: 12px;
     .icon{
       display: block;
       top: 50%;

@@ -157,7 +157,8 @@ export default {
     max-height: 300px;
     overflow-y: auto;
   }
-  /deep/ .el-submenu__title{
+  .el-submenu /deep/ .el-submenu__title{
+    font-size: 12px;
     transition: all .5s;
     .icon{
       display: block;

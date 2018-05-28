@@ -51,6 +51,7 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
     background: #fff;
     line-height: 20px;
+    font-size: 12px;
     /deep/ .el-breadcrumb__inner.is-link{
       font-weight: normal;
       color: #337ab7;

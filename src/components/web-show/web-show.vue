@@ -175,6 +175,7 @@
     padding: 10px;
     background: #fff;
     box-sizing: border-box;
+    border-radius: 5px;
     border-top-right-radius: 10px;
     box-shadow: 5px 5px 5px #666;
     .setting{

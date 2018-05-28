@@ -65,6 +65,7 @@ export default {
         line-height: 60px;
         font-size: 45px;
         color: #868686;
+        border-radius: 3px;
         &:hover{
           color: $button-color;
         }

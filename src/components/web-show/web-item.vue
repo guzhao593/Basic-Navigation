@@ -72,7 +72,7 @@
   .web-link{
     display: block;
     color: #286090;
-    font-size: 14px;
+    font-size: 12px;
     float: left;
     width: 160px;
     margin: 6px 5px;
