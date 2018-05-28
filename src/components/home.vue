@@ -9,7 +9,9 @@
       </el-aside>
       <el-main>
         <m-breadcrumb></m-breadcrumb>
-        <router-view :key="$route.fullPath"></router-view>
+        <div class="show-box">
+          <router-view :key="$route.fullPath"></router-view>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -83,5 +85,8 @@
     height: calc(100vh - 60px);
     padding: 0px;
     background: #EDEDED;
+    .show-box{
+      margin: 0px 20px;
+    }
   }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="web-show">
-    <!-- <i class="el-icon-plus setting add" @click="handlerAdd()"></i> -->
     <div class="setting">
       <i 
         class="edit" 
@@ -171,7 +170,6 @@
     position: relative;
     height: calc(100vh - 146px);
     overflow-y: scroll;
-    margin: 0 20px 20px;
     padding: 10px;
     background: #fff;
     box-sizing: border-box;

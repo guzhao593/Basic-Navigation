@@ -1,56 +1,55 @@
 <template>
-  <el-table
-    :data="tableData"
-    row-key="date"
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
+ <b-table
+  :table="table"
+ >
+  <template slot-scope="tableScope">
+    <el-table
+      :data="tableScope.data"
+    >
+      <el-table-column
+        v-for="(item, key) in tableScope.column"
+        :key="key"
+        :prop="item.prop"
+        :label="item.label"
+        :width="item.width"
+      >
+      </el-table-column>
+    </el-table>
+  </template>
+ </b-table>
 </template>
 
 <script>
 import Sortable from 'sortablejs'
 import {cloneData} from 'util'
+import req from 'api/web'
+import BTable from 'components/common/b-table/index.vue'
 export default {
   name: 'Table',
+  components: {
+    BTable
+  },
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小1',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小2',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小3',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小4',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }],
-      currentRow: null,
-      newTableData: [],
-      sortable: null
+      table: {
+        column: [
+          {prop: 'id', label: 'ID', width: '50'},
+          {prop: 'class', label: '网址分类', width: '150'},
+          {prop: 'name', label: '网址名称', width: '150'},
+          {prop: 'orderNo', label: '排序序列', width: '150'},
+          {prop: 'subClass', label: '网址子类', width: '150'},
+          {prop: 'url', label: '网址地址', width: '250'}
+        ],
+        data: [],
+        info: null
+      }
     }
   },
   created () {
-    this.newTableData = cloneData(this.tableData)
+    req('getWebsite').then(data => {
+      this.table.data = data
+      this.newTableData = cloneData(data)
+    })
     this.$nextTick(() => {
       this.setSort()
     })
