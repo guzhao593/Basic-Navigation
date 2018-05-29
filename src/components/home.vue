@@ -87,6 +87,8 @@
     background: #EDEDED;
     .show-box{
       margin: 0px 20px;
+      height: calc(100vh - 140px);
+      overflow: auto;
     }
   }
 </style>
