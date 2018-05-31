@@ -21,7 +21,7 @@
       :data="table.data"
       :column="table.column"
       :operator="table.setting.operator"
-      :height="367"
+      :height="362"
     >
     </slot>
     <div class="pagination">
@@ -67,7 +67,22 @@
         this.total = info.total
       }
     },
+    mounted () {
+      this.bindElTable()
+    },
     methods: {
+      bindElTable () {
+        this.elTable = this.$children.find(
+          ({ $options = {} }) => $options._componentTag === 'el-table'
+        ) || {}
+        this.bindElTableRowClick()
+      },
+      bindElTableRowClick () {
+        this.elTable.$on('row-click', this.toggleRowSelection)
+      },
+      toggleRowSelection (row, event, column) {
+        this.elTable.toggleRowSelection(row)
+      },
       getPageInfo (key) {
         const { info } = this.table
         return info && info[key]
