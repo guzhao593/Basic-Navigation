@@ -1,9 +1,27 @@
 <template>
   <div class="b-table">
+    <nav class="nav">
+      <div class="nav-left">
+        <el-button
+          v-for="(tool, key) in toolbar"
+          :key="key"
+          :value="tool.text"
+          :type="tool.type"
+          @click.stop.native="toolbarClick(tool)"
+        >
+          {{tool.text}}
+        </el-button>
+      </div>
+      <div class="nav-right">
+        <slot name="rightToolbar"></slot>
+        <slot name="search"></slot>
+      </div>
+    </nav>
     <slot
       :data="table.data"
       :column="table.column"
-      :height="362"
+      :operator="table.setting.operator"
+      :height="367"
     >
     </slot>
     <div class="pagination">
@@ -39,6 +57,11 @@
         total: this.getPageInfo('total') || 0
       }
     },
+    computed: {
+      toolbar () {
+        return this.table.setting.toolbar
+      }
+    },
     watch: {
       'table.info' (info) {
         this.total = info.total
@@ -56,6 +79,9 @@
       handleCurrentChange (pageIndex) {
         this.pageIndex = pageIndex
         this.$emit('handleSizeChange', {pageSize: this.pageSize, pageIndex})
+      },
+      toolbarClick ({func}) {
+        func && func(this)
       }
     }
   }
@@ -65,7 +91,7 @@
   .b-table{
     .el-table{
       border-radius: 5px;
-      border: 1px solid #dedede;
+      // border: 1px solid #dedede;
       /deep/ thead tr th{
         padding: 8px 0;
         background-color: #dcdcdc;
@@ -80,6 +106,22 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+    }
+    nav{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding:0 2px 8px;
+      .nav-left, .nav-right{
+        display: flex;
+        flex-direction: row;
+      }
+      .nav-left{
+        justify-content: flex-start;
+      }
+      .nav-right{
+        justify-content: flex-end;
+      }
     }
           /* 设置滚动条的样式 */
     ::-webkit-scrollbar {

@@ -19,6 +19,7 @@
         showOverflowTooltip
       >
       </el-table-column>
+      <b-table-operator :table="tableScope"></b-table-operator>
     </el-table>
   </template>
  </b-table>
@@ -29,10 +30,12 @@ import Sortable from 'sortablejs'
 import {cloneData} from 'util'
 import req from 'api/web'
 import BTable from 'components/common/b-table/index.vue'
+import BTableOperator from 'components/common/b-table-operator/index.vue'
 export default {
   name: 'Table',
   components: {
-    BTable
+    BTable,
+    BTableOperator
   },
   data () {
     return {
@@ -45,6 +48,32 @@ export default {
           {prop: 'subClass', label: '网址子类', width: '100'},
           {prop: 'url', label: '网址地址', width: '1111'}
         ],
+        setting: {
+          operator: [
+            {
+              text: '修改'
+            },
+            {
+              text: '删除'
+            }
+          ],
+          toolbar: [
+            {
+              text: '添加',
+              type: 'primary',
+              func (param) {
+                console.log(param)
+              }
+            },
+            {
+              text: '删除',
+              type: 'danger',
+              func (param) {
+                console.log(param)
+              }
+            }
+          ]
+        },
         data: [],
         info: {
           pageIndex: 1,
