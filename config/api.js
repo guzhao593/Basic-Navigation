@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:593'
+export const BASE_URL = '/api'
 
 export const TIMEOUT_MILLISECONDS = 1000
 
