@@ -6,6 +6,7 @@ import WebShow from 'components/web-show/web-show.vue'
 import UEditor from 'components/practice/ueditor.vue'
 import Table from 'components/practice/table.vue'
 import Echarts from 'components/practice/echarts.vue'
+import NewCrawler from 'components/practice/news-crawler.vue'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ const router = new Router({
               path: 'echarts',
               name: 'echarts',
               component: Echarts
+            },
+            {
+              path: 'news-crawler',
+              name: '新闻爬虫',
+              component: NewCrawler
             }
           ]
         }

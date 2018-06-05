@@ -26,15 +26,6 @@
           @mousedown="mousedown"
           @mouseup="mouseup"
         ></i>
-        <!-- <el-select v-model="searchClass" slot="prepend">
-          <el-option
-            v-for="(item, idx) of searchClassOptions"
-            :key="idx"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-button slot="append" @click="submit">搜索</el-button> -->
       </el-input>
     </el-form-item>
   </el-form>

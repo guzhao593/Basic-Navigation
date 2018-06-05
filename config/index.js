@@ -18,7 +18,7 @@ module.exports = {
           '/api': ''
         },
         onProxyReq: function (proxyReq, req, res) {
-          console.log(req.method, req.path)
+          // console.log(req.method, req.path)
         }
       }
     },
