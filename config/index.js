@@ -16,9 +16,6 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
           '/api': ''
-        },
-        onProxyReq: function (proxyReq, req, res) {
-          // console.log(req.method, req.path)
         }
       }
     },
@@ -26,7 +23,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 9000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,  // 不从这里打开, 由另个一个地方打开
     errorOverlay: true,
     // 解决编辑器报错弹窗
     notifyOnErrors: false,
