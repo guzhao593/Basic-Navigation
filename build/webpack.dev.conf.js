@@ -12,8 +12,7 @@ const portfinder = require('portfinder')
 const opn = require('opn')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
-var compiler = webpack(baseWebpackConfig)
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
+var devMiddleware = require('webpack-dev-middleware')(webpack(baseWebpackConfig), {
   publicPath: baseWebpackConfig.output.publicPath,
   quiet: true
 })
@@ -79,24 +78,26 @@ module.exports = new Promise((resolve, reject) => {
     if (err) {
       reject(err)
     } else {
+      // 编译完成后才打开浏览器
       devMiddleware.waitUntilValid(() => {
+        // 打开本地地址
         opn(`http://localhost:${port}`)
-        // publish the new Port, necessary for e2e tests
-        process.env.PORT = port
-        // add port to devServer config
-        devWebpackConfig.devServer.port = port
-  
-        // Add FriendlyErrorsPlugin
-        devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-          compilationSuccessInfo: {
-            messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}\n\n`],
-          },
-          onErrors: config.dev.notifyOnErrors
-          ? utils.createNotifierCallback()
-          : undefined
-        }))
-        resolve(devWebpackConfig)
       })
+      // publish the new Port, necessary for e2e tests
+      process.env.PORT = port
+      // add port to devServer config
+      devWebpackConfig.devServer.port = port
+
+      // Add FriendlyErrorsPlugin
+      devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+        compilationSuccessInfo: {
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}\n\n`],
+        },
+        onErrors: config.dev.notifyOnErrors
+        ? utils.createNotifierCallback()
+        : undefined
+      }))
+      resolve(devWebpackConfig)
     }
   })
 })
