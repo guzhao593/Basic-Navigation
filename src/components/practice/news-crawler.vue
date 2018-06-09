@@ -13,8 +13,6 @@
       :w="item.w"
       :h="item.h"
       :i="item.i"
-      @resize="resizeEvent"
-      @move="moveEvent"
       @resized="resizedEvent"
       @moved="movedEvent"
       class="grid-item"
@@ -43,12 +41,26 @@
           {'x': 8, 'y': 4, 'w': 4, 'h': 6, 'i': '5'}
         ]
       }
+    },
+    methods: {
+      resizedEvent (i, x, y, h, w) {
+        console.log(i, x, y, h, w, 'resizeEvent')
+      },
+      movedEvent (i, x, y) {
+        console.log(i, x, y, 'movedEvent')
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .grid-item{
-    background-color: #ccc;
+  .vue-grid-layout{
+    .grid-item{
+      background-color: #fff;
+    }
+    /deep/ .vue-grid-placeholder{
+      background-color: #fff;
+      opacity: 0;
+    }
   }
 </style>
