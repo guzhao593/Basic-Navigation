@@ -7,6 +7,7 @@
   >
     <grid-item 
       v-for="(item, key) in layout"
+      v-loading="!newsData.length" 
       :key="key"
       :x="item.x"
       :y="item.y"
@@ -15,10 +16,10 @@
       :i="item.i"
       @resized="resizedEvent"
       @moved="movedEvent"
+      dragAllowFrom="header"
       class="grid-item"
     >
       <b-show-news 
-        v-if="newsData.length" 
         :data="newsData[key]"
         :bgColor="bgColor[key]"
       ></b-show-news>
@@ -75,6 +76,7 @@
 
 <style lang="scss" scoped>
   .vue-grid-layout{
+    margin-top: -5px;
     .grid-item{
       background-color: #fff;
       border-radius: 5px; 
