@@ -19,7 +19,8 @@
       dragAllowFrom="header"
       class="grid-item"
     >
-      <b-show-news 
+      <b-show-news
+        v-if="newsData[key]" 
         :data="newsData[key]"
         :bgColor="bgColor[key]"
       ></b-show-news>
