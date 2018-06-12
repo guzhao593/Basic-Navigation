@@ -29,6 +29,7 @@
 
 <script>
 import {cloneData} from 'util'
+import XLSX from 'xlsx'
 import req from 'api/web'
 import BTable from 'components/common/b-table/index.vue'
 import BTableOperator from 'components/common/b-table-operator/index.vue'
@@ -46,8 +47,8 @@ export default {
           {prop: 'class', label: '网址分类', width: '150'},
           {prop: 'name', label: '网址名称', width: '150'},
           {prop: 'orderNo', label: '排序序列', width: '100'},
-          {prop: 'subClass', label: '网址子类', width: '100'},
-          {prop: 'url', label: '网址地址', width: ''}
+          {prop: 'subclass', label: '网址子类', width: '100'},
+          {prop: 'url', label: '网址地址', width: '200'}
         ],
         setting: {
           operator: [
@@ -71,6 +72,13 @@ export default {
               type: 'danger',
               func (param) {
                 console.log(param)
+              }
+            },
+            {
+              text: '导出',
+              type: 'success',
+              func: () => {
+                this.export()
               }
             }
           ]
@@ -100,6 +108,18 @@ export default {
     },
     handleSelectionChange (selected) {
       console.log(selected)
+    },
+    export () {
+      let ws = XLSX.utils.json_to_sheet(this.table.data, {header: ['id', 'class', 'name', 'orderNo', 'subclass', 'url']})
+      ws['!cols'] = []
+      this.table.column.forEach((item, key) => {
+        ws[`${String.fromCharCode('A'.charCodeAt() + key)}1`].v = item.label
+        ws['!cols'].push({wpx: item.width})
+      })
+      console.log(ws, 'ws')
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
+      XLSX.writeFile(wb, 'sheetjs.xlsx')
     }
   }
 }
