@@ -116,7 +116,6 @@ export default {
         ws[`${String.fromCharCode('A'.charCodeAt() + key)}1`].v = item.label
         ws['!cols'].push({wpx: item.width})
       })
-      console.log(ws, 'ws')
       const wb = XLSX.utils.book_new()
       XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
       XLSX.writeFile(wb, 'sheetjs.xlsx')
