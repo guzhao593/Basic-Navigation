@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: 'MSelect',
+    name: 'BSelect',
     props: {
       options: {
         type: Array,

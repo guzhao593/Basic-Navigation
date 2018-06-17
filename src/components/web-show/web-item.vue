@@ -27,11 +27,11 @@
 <script>
   import { BASE_URL } from 'config/api'
   import req from 'api/web'
-  import MDialog from 'components/common/m-dialog.vue'
+  import BDialog from 'components/common/b-dialog.vue'
   export default {
     name: 'WebItem',
     components: {
-      MDialog
+      BDialog
     },
     props: {
       isEditor: Boolean,

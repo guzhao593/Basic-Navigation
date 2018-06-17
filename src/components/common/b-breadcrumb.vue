@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'MBreadcrumb',
+    name: 'BBreadcrumb',
     props: {
 
     },

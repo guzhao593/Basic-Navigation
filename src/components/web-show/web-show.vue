@@ -58,16 +58,16 @@
   import { selectSort } from 'util/sortMethods'
   import draggable from 'vuedraggable'
   import WebItem from './web-item.vue'
-  import MDialog from 'components/common/m-dialog.vue'
-  import MSelect from 'components/common/m-select.vue'
+  import BDialog from 'components/common/b-dialog.vue'
+  import BSelect from 'components/common/b-select.vue'
   import WebDialog from './web-dialog.vue'
   export default {
     name: 'WebShow',
     components: {
       draggable,
       WebItem,
-      MSelect,
-      MDialog,
+      BSelect,
+      BDialog,
       WebDialog
     },
     data () {

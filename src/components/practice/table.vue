@@ -29,7 +29,6 @@
 
 <script>
 import {cloneData} from 'util'
-import XLSX from 'xlsx'
 import req from 'api/web'
 import BTable from 'components/common/b-table/index.vue'
 import BTableOperator from 'components/common/b-table-operator/index.vue'
@@ -73,15 +72,12 @@ export default {
               func (param) {
                 console.log(param)
               }
-            },
-            {
-              text: '导出',
-              type: 'success',
-              func: () => {
-                this.export()
-              }
             }
-          ]
+          ],
+          export: {
+            text: '导出',
+            type: 'success'
+          }
         },
         data: [],
         info: {
@@ -108,17 +104,6 @@ export default {
     },
     handleSelectionChange (selected) {
       console.log(selected)
-    },
-    export () {
-      let ws = XLSX.utils.json_to_sheet(this.table.data, {header: ['id', 'class', 'name', 'orderNo', 'subclass', 'url']})
-      ws['!cols'] = []
-      this.table.column.forEach((item, key) => {
-        ws[`${String.fromCharCode('A'.charCodeAt() + key)}1`].v = item.label
-        ws['!cols'].push({wpx: item.width})
-      })
-      const wb = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(wb, ws, 'SheetJS')
-      XLSX.writeFile(wb, 'sheetjs.xlsx')
     }
   }
 }

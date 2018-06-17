@@ -2,7 +2,7 @@
   <el-dialog
     :visible.sync="isDialogVisible"
     :title="title"
-    width="30vw"
+    :width="width"
   >
     <slot></slot>
     <span slot="footer" class="dialog-footer">
@@ -21,13 +21,17 @@
 
 <script>
   export default {
-    name: 'MDialog',
+    name: 'BDialog',
     props: {
       toolbar: Array,
       title: String,
       dialogVisible: {
         type: Boolean,
         default: false
+      },
+      width: {
+        type: String,
+        default: '30vw'
       }
     },
     data () {

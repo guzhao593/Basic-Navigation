@@ -35,7 +35,7 @@
   import req from 'api'
 
   export default {
-    name: 'MSearch',
+    name: 'BSearch',
     props: {
       searchClass: {
         type: String,

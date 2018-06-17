@@ -36,13 +36,23 @@
       >
       </el-pagination>
     </div>
+    <export
+      v-if="exportDialogVisible"
+      v-model="exportDialogVisible"
+      :data="table.data"
+      :select="selectData"
+      :column="table.column"
+    ></export>
   </div>
 </template>
 
 <script>
+  import Export from './export'
   export default {
     name: 'BTable',
-    components: {},
+    components: {
+      Export
+    },
     props: {
       table: {
         type: Object,
@@ -54,12 +64,17 @@
         showPageBar: this.table.showPageBar || true,
         pageSize: this.getPageInfo('pageSize') || 8,
         pageIndex: this.getPageInfo('pageIndex') || 1,
-        total: this.getPageInfo('total') || 0
+        total: this.getPageInfo('total') || 0,
+        exportDialogVisible: false,
+        selectData: []
       }
     },
     computed: {
       toolbar () {
-        return this.table.setting.toolbar
+        return this.table.setting.toolbar.concat(this.exportSetting)
+      },
+      exportSetting () {
+        return this.settingMap('export')
       }
     },
     watch: {
@@ -85,7 +100,7 @@
       },
       getPageInfo (key) {
         const { info } = this.table
-        return info && info[key]
+        return info && +info[key]
       },
       handleSizeChange (pageSize) {
         this.pageSize = pageSize
@@ -97,6 +112,19 @@
       },
       toolbarClick ({func}) {
         func && func(this)
+      },
+      settingMap (type) {
+        const settingType = this.table.setting[type]
+        if (settingType && Object.keys(settingType).length) {
+          return [{
+            type: settingType.type,
+            text: settingType.text,
+            func: this[`${type}Dialog`]
+          }]
+        }
+      },
+      exportDialog () {
+        this.exportDialogVisible = true
       }
     }
   }

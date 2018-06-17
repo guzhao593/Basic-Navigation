@@ -1,14 +1,14 @@
 <template>
   <el-container>
     <el-header style="height: 60px">
-      <m-header @collapseToggle="collapseToggle"></m-header>
+      <b-header @collapseToggle="collapseToggle"></b-header>
     </el-header>
     <el-container>
       <el-aside  :style="{width: collapseWidth}" @scroll.native="getScroll">
         <b-menu :edit-top="editTop"></b-menu>
       </el-aside>
       <el-main>
-        <m-breadcrumb></m-breadcrumb>
+        <b-breadcrumb></b-breadcrumb>
         <div class="show-box">
           <router-view :key="$route.fullPath"></router-view>
         </div>
@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import BMenu from 'components/common/m-menu/b-menu.vue'
-  import MHeader from 'components/common/m-header.vue'
-  import MBreadcrumb from 'components/common/m-breadcrumb.vue'
+  import BMenu from 'components/common/b-menu/b-menu.vue'
+  import BHeader from 'components/common/b-header.vue'
+  import BBreadcrumb from 'components/common/b-breadcrumb.vue'
   export default {
     name: 'home',
     data () {
@@ -31,8 +31,8 @@
     },
     components: {
       BMenu,
-      MHeader,
-      MBreadcrumb
+      BHeader,
+      BBreadcrumb
     },
     created () {
     },

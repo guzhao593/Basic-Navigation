@@ -1,35 +1,35 @@
 <template>
-  <m-dialog
+  <b-dialog
     :dialog-visible.sync="showDialog"
     :title="title"
     :toolbar="toolbar"
   >
     <el-form label-width="100px" :model="dialogForm">
-      <el-form-item label="网站名称：">
+      <el-form-item label="网站名称:">
         <el-input v-model="dialogForm.name"></el-input>
       </el-form-item>
       <el-form-item label="网址：">
         <el-input v-model="dialogForm.url"></el-input>
       </el-form-item>
       <el-form-item label="分类：">
-        <m-select
+        <b-select
           v-model="dialogForm.class"
           :options="classOptions"
           :property="menuProperty"
-        ></m-select>
+        ></b-select>
       </el-form-item>
     </el-form>
-  </m-dialog>
+  </b-dialog>
 </template>
 
 <script>
-  import MSelect from 'components/common/m-select.vue'
-  import MDialog from 'components/common/m-dialog.vue'
+  import BSelect from 'components/common/b-select.vue'
+  import BDialog from 'components/common/b-dialog.vue'
   export default {
     name: 'WebDialog',
     components: {
-      MDialog,
-      MSelect
+      BDialog,
+      BSelect
     },
     props: {
       isShowDialog: Boolean,

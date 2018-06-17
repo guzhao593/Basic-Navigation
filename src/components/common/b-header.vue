@@ -1,5 +1,5 @@
 <template>
-  <div class="m-header">
+  <div class="b-header">
     <h3>Basic Navigation</h3>
     <div class="collapse-toggle">
       <i 
@@ -11,16 +11,16 @@
         @click="collapseToggle"
       ></i>
     </div>
-    <m-search class="m-search"></m-search>
+    <b-search class="b-search"></b-search>
   </div>
 </template>
 
 <script>
-import MSearch from './m-search.vue'
+import BSearch from './b-search.vue'
 export default {
-  name: 'MHeader',
+  name: 'BHeader',
   components: {
-    MSearch
+    BSearch
   },
   data () {
     return {
@@ -38,7 +38,7 @@ export default {
 
 <style lang="scss" scoped>
   @import 'style/var.scss';
-  .m-header{
+  .b-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -52,7 +52,7 @@ export default {
       background: #F09B22;
       text-indent: .5em;
     }
-    .m-search{
+    .b-search{
       flex: auto;
       display: flex;
       flex-direction: row;
