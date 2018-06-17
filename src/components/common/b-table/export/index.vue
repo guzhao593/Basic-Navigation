@@ -33,7 +33,8 @@
       },
       column: Array,
       data: Array,
-      selectData: Array
+      selectData: Array,
+      exportConfig: Object
     },
     data () {
       return {
@@ -76,7 +77,19 @@
         this.$emit('input', false)
       },
       export () {
-        let ws = XLSX.utils.json_to_sheet(this.data, {header: this.columnName})
+        this.form.dataType === 'page' && this.exportExcel(this.data)
+        this.form.dataType === 'select' && this.exportExcel(this.selectData)
+        this.form.dataType === 'all' && this.exportAll()
+        this.close()
+      },
+      exportAll () {
+        const { req, reqApi } = this.exportConfig
+        req(reqApi, {pageSize: -1}).then(({data}) => {
+          this.exportExcel(data)
+        })
+      },
+      exportExcel (data) {
+        let ws = XLSX.utils.json_to_sheet(data, {header: this.columnName})
         ws['!cols'] = []
         this.column.forEach((item, key) => {
           ws[`${String.fromCharCode('A'.charCodeAt() + key)}1`].v = item.label

@@ -10,6 +10,7 @@ export default (function request () {
   let cancel = null
   return function () {
     let agrs = Array.from(arguments)
+    console.log(agrs, 'agrs')
     // 请求接口集
     const config = agrs[0]
     // 当前请求接口名称

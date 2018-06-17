@@ -9,7 +9,6 @@
       :height="tableScope.height"
       border
       stripe
-      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="40"></el-table-column>
       <el-table-column
@@ -76,7 +75,9 @@ export default {
           ],
           export: {
             text: '导出',
-            type: 'success'
+            type: 'success',
+            req,
+            reqApi: 'getWebsite'
           }
         },
         data: [],
@@ -101,9 +102,6 @@ export default {
         this.table.info = res.info
         this.newTableData = cloneData(res.data)
       })
-    },
-    handleSelectionChange (selected) {
-      console.log(selected)
     }
   }
 }

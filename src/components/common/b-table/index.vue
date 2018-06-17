@@ -40,8 +40,9 @@
       v-if="exportDialogVisible"
       v-model="exportDialogVisible"
       :data="table.data"
-      :select="selectData"
+      :selectData="selectData"
       :column="table.column"
+      :exportConfig="table.setting.export"
     ></export>
   </div>
 </template>
@@ -66,7 +67,8 @@
         pageIndex: this.getPageInfo('pageIndex') || 1,
         total: this.getPageInfo('total') || 0,
         exportDialogVisible: false,
-        selectData: []
+        selectData: [],
+        elTable: null
       }
     },
     computed: {
@@ -80,6 +82,9 @@
     watch: {
       'table.info' (info) {
         this.total = info.total
+      },
+      'elTable.selection' (newVal) {
+        this.selectData = newVal
       }
     },
     mounted () {
