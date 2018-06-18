@@ -9,6 +9,9 @@
       <el-form-item label="文件名:">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
+      <el-form-item label="文件格式:">
+        <b-select v-model="form.fileType" :options="fileOptions"></b-select>
+      </el-form-item>
       <el-form-item label="选择数据:">
         <b-select v-model="form.dataType" :options="dataOptions"></b-select>
       </el-form-item>
@@ -56,12 +59,19 @@
         ],
         form: {
           name: '导出Excel表',
+          fileType: 'xlsx',
           dataType: 'page'
         },
         dataOptions: [
           { label: '当页数据', value: 'page' },
           { label: '选择数据', value: 'select' },
           { label: '所有数据', value: 'all' }
+        ],
+        fileOptions: [
+          {label: 'xlsx', value: 'xlsx'},
+          {label: 'xls', value: 'xls'},
+          {label: 'txt', value: 'txt'},
+          {label: 'csv', value: 'csv'}
         ],
         dialogVisible: this.value
       }
@@ -97,7 +107,7 @@
         })
         const wb = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wb, ws, this.form.name)
-        XLSX.writeFile(wb, `${this.form.name}.xlsx`)
+        XLSX.writeFile(wb, `${this.form.name}.${this.form.fileType}`)
       }
     }
   }
