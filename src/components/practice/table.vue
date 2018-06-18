@@ -5,6 +5,7 @@
  >
   <template slot-scope="tableScope">
     <el-table
+      v-loading="loading"
       :data="tableScope.data"
       :height="tableScope.height"
       border
@@ -86,7 +87,8 @@ export default {
           pageSize: 8,
           total: 0
         }
-      }
+      },
+      loading: false
     }
   },
   created () {
@@ -97,11 +99,14 @@ export default {
       this.fetch(info)
     },
     fetch (options) {
-      req('getWebsite', options).then(res => {
-        this.table.data = res.data
-        this.table.info = res.info
-        this.newTableData = cloneData(res.data)
-      })
+      this.loading = true
+      req('getWebsite', options)
+        .then(res => {
+          this.table.data = res.data
+          this.table.info = res.info
+          this.newTableData = cloneData(res.data)
+        })
+        .finally(() => (this.loading = false))
     }
   }
 }
