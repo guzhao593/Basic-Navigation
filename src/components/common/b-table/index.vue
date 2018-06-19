@@ -29,6 +29,7 @@
         v-if="showPageBar"
         :page-sizes="[8, 10, 20, 30]"
         :page-size="pageSize"
+        :current-page="pageIndex"
         :total="total"
         layout="total, sizes, prev, pager, next, jumper"
         @size-change="handleSizeChange"
@@ -81,7 +82,9 @@
     },
     watch: {
       'table.info' (info) {
-        this.total = info.total
+        this.total = +info.total
+        this.pageSize = +info.pageSize
+        this.pageIndex = +info.pageIndex
       },
       'elTable.selection' (newVal) {
         this.selectData = newVal

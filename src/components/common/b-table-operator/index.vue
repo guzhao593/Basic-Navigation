@@ -53,6 +53,11 @@
       operatorBtn () {
         return this.table.operator
       }
+    },
+    methods: {
+      handleClickOperator (btn, row) {
+        btn.func && btn.func(row)
+      }
     }
   }
 </script>

@@ -3,6 +3,7 @@
     :visible.sync="isDialogVisible"
     :title="title"
     :width="width"
+    @close="close"
   >
     <slot></slot>
     <span slot="footer" class="dialog-footer">
@@ -48,6 +49,9 @@
       handlerMethods (func) {
         if (typeof func !== 'function') return false
         func()
+      },
+      close () {
+        this.$emit('close', false)
       }
     }
   }

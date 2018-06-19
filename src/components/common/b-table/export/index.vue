@@ -1,7 +1,7 @@
 <template>
   <b-dialog
     :dialogVisible="dialogVisible"
-    title="导出为Excel"
+    title="导出"
     :toolbar="toolbar"
     width="25vw"
   >

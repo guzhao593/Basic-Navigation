@@ -1,30 +1,39 @@
 <template>
- <b-table
-  :table="table"
-  @handleSizeChange="handleSizeChange"
- >
-  <template slot-scope="tableScope">
-    <el-table
-      v-loading="loading"
-      :data="tableScope.data"
-      :height="tableScope.height"
-      border
-      stripe
+  <div>
+    <b-table
+    :table="table"
+    @handleSizeChange="handleSizeChange"
     >
-      <el-table-column type="selection" width="40"></el-table-column>
-      <el-table-column
-        v-for="(item, key) in tableScope.column"
-        :key="key"
-        :prop="item.prop"
-        :label="item.label"
-        :width="item.width"
-        showOverflowTooltip
+    <template slot-scope="tableScope">
+      <el-table
+        v-loading="loading"
+        :data="tableScope.data"
+        :height="tableScope.height"
+        border
+        stripe
       >
-      </el-table-column>
-      <b-table-operator :table="tableScope"></b-table-operator>
-    </el-table>
-  </template>
- </b-table>
+        <el-table-column type="selection" width="40"></el-table-column>
+        <el-table-column
+          v-for="(item, key) in tableScope.column"
+          :key="key"
+          :prop="item.prop"
+          :label="item.label"
+          :width="item.width"
+          showOverflowTooltip
+        >
+        </el-table-column>
+        <b-table-operator :table="tableScope"></b-table-operator>
+      </el-table>
+    </template>
+    </b-table>
+    <table-dialog
+      v-if="dialogVisible"
+      v-model="dialogVisible"
+      :title="title"
+      :dialog-form="dialogForm"
+      @fetch="fetch({pageIndex: 1, pageSize: table.info.pageSize})"
+    ></table-dialog>
+  </div>
 </template>
 
 <script>
@@ -32,11 +41,13 @@ import {cloneData} from 'util'
 import req from 'api/web'
 import BTable from 'components/common/b-table/index.vue'
 import BTableOperator from 'components/common/b-table-operator/index.vue'
+import TableDialog from './table-dialog.vue'
 export default {
   name: 'Table',
   components: {
     BTable,
-    BTableOperator
+    BTableOperator,
+    TableDialog
   },
   data () {
     return {
@@ -52,26 +63,26 @@ export default {
         setting: {
           operator: [
             {
-              text: '修改'
+              text: '修改',
+              func: (row) => {
+                this.edit(row)
+              }
             },
             {
-              text: '删除'
+              text: '删除',
+              func: this.delete
             }
           ],
           toolbar: [
             {
               text: '添加',
               type: 'primary',
-              func (param) {
-                console.log(param)
-              }
+              func: this.add
             },
             {
               text: '删除',
               type: 'danger',
-              func (param) {
-                console.log(param)
-              }
+              func: this.delete
             }
           ],
           export: {
@@ -88,7 +99,9 @@ export default {
           total: 0
         }
       },
-      loading: false
+      loading: false,
+      dialogForm: {},
+      dialogVisible: false
     }
   },
   created () {
@@ -107,6 +120,16 @@ export default {
           this.newTableData = cloneData(res.data)
         })
         .finally(() => (this.loading = false))
+    },
+    add () {
+      this.dialogForm = {}
+      this.title = '新增网址'
+      this.dialogVisible = true
+    },
+    edit (row) {
+      this.dialogForm = row
+      this.title = '修改网址'
+      this.dialogVisible = true
     }
   }
 }
