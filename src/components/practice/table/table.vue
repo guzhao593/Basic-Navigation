@@ -1,8 +1,9 @@
 <template>
   <div>
     <b-table
-    :table="table"
-    @handleSizeChange="handleSizeChange"
+      ref="bTable"
+      :table="table"
+      @handleSizeChange="handleSizeChange"
     >
     <template slot-scope="tableScope">
       <el-table
@@ -70,7 +71,9 @@ export default {
             },
             {
               text: '删除',
-              func: this.delete
+              func: (row) => {
+                this.delete(row)
+              }
             }
           ],
           toolbar: [
@@ -82,7 +85,9 @@ export default {
             {
               text: '删除',
               type: 'danger',
-              func: this.delete
+              func: (vm) => {
+                this.delete()
+              }
             }
           ],
           export: {
@@ -130,6 +135,25 @@ export default {
       this.dialogForm = row
       this.title = '修改网址'
       this.dialogVisible = true
+    },
+    delete (row) {
+      let deleteData = row ? [row] : this.$refs.bTable.selectData
+      if (!deleteData.length) return this.$message({message: '请选择要删除的数据', type: 'warning'})
+      this.$confirm('确定要删除这些数据吗?')
+        .then(() => {
+          req('deleteWeb', {id: deleteData[0].id})
+            .then(data => {
+              if (data.affectedRows) {
+                this.$message({type: 'success', message: '删除成功'})
+                this.fetch({pageIndex: 1, pageSize: this.table.info.pageSize})
+              } else {
+                this.$message({type: 'error', message: '删除失败'})
+              }
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        })
     }
   }
 }
