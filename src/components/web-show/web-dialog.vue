@@ -8,10 +8,10 @@
       <el-form-item label="网站名称:" prop="name">
         <el-input v-model="dialogForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="网址：" prop="url">
+      <el-form-item label="网址:" prop="url">
         <el-input v-model="dialogForm.url"></el-input>
       </el-form-item>
-      <el-form-item label="分类：" prop="class">
+      <el-form-item label="分类:" prop="class">
         <b-select
           v-model="dialogForm.class"
           :options="classOptions"
