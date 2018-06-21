@@ -141,7 +141,7 @@ export default {
       if (!deleteData.length) return this.$message({message: '请选择要删除的数据', type: 'warning'})
       this.$confirm('确定要删除这些数据吗?')
         .then(() => {
-          req('deleteWeb', {id: deleteData[0].id})
+          req('deleteWeb', {id: JSON.stringify(deleteData.map(item => item.id))})
             .then(data => {
               if (data.affectedRows) {
                 this.$message({type: 'success', message: '删除成功'})
