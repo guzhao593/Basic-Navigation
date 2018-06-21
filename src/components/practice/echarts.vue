@@ -15,7 +15,6 @@ export default {
       allClass: null,
       oneClass: null,
       webData: [],
-      select: 'vue',
       selectIndex: 0
     }
   },
@@ -32,7 +31,7 @@ export default {
         }, [])
       })
       this.setAllClass(this.webData)
-      this.setOneClass(this.select)
+      this.setOneClass(this.webData[this.selectIndex].name)
     },
     setAllClass (webData) {
       webData[this.selectIndex].selected = true
@@ -40,6 +39,10 @@ export default {
       this.allClass.setOption({
         title: {
           text: '收藏网址'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '分类:{b}<br/>数量:{c}'
         },
         series: [{
           selectedMode: 'single',
@@ -73,10 +76,17 @@ export default {
         legend: {
           data: ['网址数量']
         },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{c}'
+        },
         xAxis: {
           data: [select]
         },
-        yAxis: {},
+        yAxis: {
+          min: 0,
+          max: 50
+        },
         series: [{
           name: select,
           type: 'bar',
