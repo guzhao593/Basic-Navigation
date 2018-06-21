@@ -1,6 +1,7 @@
 <template>
   <el-select
     v-model="selectValue"
+    @change="handleChange"
   >
     <el-option
       v-for="(item, idx) of options"
@@ -37,9 +38,10 @@
         selectValue: this.value
       }
     },
-    watch: {
-      selectValue (newVal) {
-        this.$emit('input', newVal)
+    methods: {
+      handleChange (value) {
+        this.$emit('input', value)
+        this.$emit('change', value)
       }
     }
   }

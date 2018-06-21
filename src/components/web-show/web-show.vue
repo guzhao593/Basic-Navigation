@@ -49,6 +49,7 @@
       :dialogForm="dialogForm"
       :title="title"
       :toolbar="toolbar"
+      ref="dialog"
     ></web-dialog>
   </div>
 </template>
@@ -128,11 +129,15 @@
         this.isShowDialog = false
       },
       submit () {
-        if (this.isAdd) {
-          this.reqFunc('addWebsite', '添加')
-        } else {
-          this.reqFunc('updateWebsite', '修改')
-        }
+        this.$refs.dialog.$refs.form.validate(valid => {
+          if (valid) {
+            if (this.isAdd) {
+              this.reqFunc('addWebsite', '添加')
+            } else {
+              this.reqFunc('updateWebsite', '修改')
+            }
+          }
+        })
       },
       reqFunc (reqAddress, status) {
         req(reqAddress, this.dialogForm)

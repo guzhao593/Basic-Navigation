@@ -4,14 +4,14 @@
     :title="title"
     :toolbar="toolbar"
   >
-    <el-form label-width="100px" :model="dialogForm">
-      <el-form-item label="网站名称:">
+    <el-form label-width="100px" :model="dialogForm" :rules="rules" ref="form">
+      <el-form-item label="网站名称:" prop="name">
         <el-input v-model="dialogForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="网址：">
+      <el-form-item label="网址：" prop="url">
         <el-input v-model="dialogForm.url"></el-input>
       </el-form-item>
-      <el-form-item label="分类：">
+      <el-form-item label="分类：" prop="class">
         <b-select
           v-model="dialogForm.class"
           :options="classOptions"
@@ -43,6 +43,17 @@
         menuProperty: {
           label: 'className',
           value: 'className'
+        },
+        rules: {
+          name: [
+            {required: true, message: '请输入网址名称'}
+          ],
+          url: [
+            {required: true, message: '请输入网址'}
+          ],
+          class: [
+            {required: true, message: '请选择网址分类'}
+          ]
         }
       }
     },
