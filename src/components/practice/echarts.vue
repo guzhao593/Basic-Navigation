@@ -73,19 +73,18 @@ export default {
         title: {
           text: select
         },
-        legend: {
-          data: ['网址数量']
-        },
         tooltip: {
           trigger: 'item',
           formatter: '{c}'
         },
         xAxis: {
-          data: [select]
+          data: [select],
+          name: '分类'
         },
         yAxis: {
           min: 0,
-          max: 50
+          max: 50,
+          name: '网址数量'
         },
         series: [{
           name: select,
