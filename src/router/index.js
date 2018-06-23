@@ -30,39 +30,52 @@ const router = new Router({
               component: WebShow
             }
           ]
-        },
-        {
-          path: 'practice',
-          name: '练习作品',
-          redirect: '/practice/table',
-          component: Blank,
-          children: [
-            {
-              path: 'ueditor',
-              name: 'ueditor',
-              component: UEditor
-            },
-            {
-              path: 'table',
-              name: 'table',
-              component: Table
-            },
-            {
-              path: 'echarts',
-              name: 'echarts',
-              component: Echarts
-            },
-            {
-              path: 'news-crawler',
-              name: '新闻爬虫',
-              component: NewCrawler
-            }
-          ]
         }
-
       ]
     }
   ]
 })
-
+export const asyncRoutes = [
+  {
+    path: '/',
+    name: '首页',
+    redirect: '/website',
+    component: Home,
+    children: [
+      {
+        path: 'practice',
+        name: '练习作品',
+        redirect: '/practice/table',
+        component: Blank,
+        children: [
+          {
+            path: 'ueditor',
+            name: 'ueditor',
+            component: UEditor
+          },
+          {
+            path: 'table',
+            name: 'table',
+            component: Table
+          },
+          {
+            path: 'echarts',
+            name: 'echarts',
+            component: Echarts
+          },
+          {
+            path: 'news-crawler',
+            name: '新闻爬虫',
+            component: NewCrawler
+          }
+        ]
+      }
+    ]
+  }
+]
+router.addRoutes(asyncRoutes)
+router.beforeEach((to, from, next) => {
+  if (to.name) document.title = to.name === 'web' ? to.params.className : to.name
+  next()
+})
 export default router
