@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
+// 关闭进度环,调整进度条速度
+import 'nprogress/nprogress.css'
+// Progress 进度条样式
 import Home from 'components/home.vue'
 import Blank from 'components/blank.vue'
 import WebShow from 'components/web-show/web-show.vue'
@@ -7,6 +11,7 @@ import UEditor from 'components/practice/ueditor.vue'
 import Table from 'components/practice/table/table.vue'
 import Echarts from 'components/practice/echarts.vue'
 import NewCrawler from 'components/practice/news-crawler.vue'
+NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 
 Vue.use(Router)
 
@@ -76,6 +81,10 @@ export const asyncRoutes = [
 router.addRoutes(asyncRoutes)
 router.beforeEach((to, from, next) => {
   if (to.name) document.title = to.name === 'web' ? to.params.className : to.name
+  NProgress.start()
   next()
+})
+router.afterEach((to, from) => {
+  NProgress.done()
 })
 export default router
