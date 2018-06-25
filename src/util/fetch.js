@@ -3,6 +3,9 @@ import qs from 'qs'
 import { Message } from 'element-ui'
 import { BASE_URL, TIMEOUT_MILLISECONDS, ERROR_MESSAGE } from 'config/api'
 
+if (process.env.NODE_ENV === 'production') {
+  BASE_URL = 'http://localhost:593/api'
+}
 // 创建axios实例
 let instance = axios.create({
   // baseURL:会跟请求路径拼接起来
