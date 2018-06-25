@@ -4,13 +4,13 @@ import NProgress from 'nprogress'
 // 关闭进度环,调整进度条速度
 import 'nprogress/nprogress.css'
 // Progress 进度条样式
-import Home from 'components/home.vue'
-import Blank from 'components/blank.vue'
-import WebShow from 'components/web-show/web-show.vue'
-import UEditor from 'components/practice/ueditor.vue'
-import Table from 'components/practice/table/table.vue'
-import Echarts from 'components/practice/echarts.vue'
-import NewCrawler from 'components/practice/news-crawler.vue'
+const Home = () => import('components/home.vue')
+const Blank = () => import('components/blank.vue')
+const WebShow = () => import('components/web-show/web-show.vue')
+const UEditor = () => import('components/practice/ueditor.vue')
+const Table = () => import('components/practice/table/table.vue')
+const Echarts = () => import('components/practice/echarts.vue')
+const NewCrawler = () => import('components/practice/news-crawler.vue')
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 
 Vue.use(Router)
