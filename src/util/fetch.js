@@ -2,14 +2,14 @@ import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
 import { BASE_URL, TIMEOUT_MILLISECONDS, ERROR_MESSAGE } from 'config/api'
-
+let baseUrl = BASE_URL
 if (process.env.NODE_ENV === 'production') {
-  BASE_URL = 'http://localhost:593/api'
+  baseUrl = 'http://localhost:593/api'
 }
 // 创建axios实例
 let instance = axios.create({
   // baseURL:会跟请求路径拼接起来
-  baseURL: BASE_URL,
+  baseURL: baseUrl,
   // 超时设置
   timeout: TIMEOUT_MILLISECONDS,
   // 请求头部信息
