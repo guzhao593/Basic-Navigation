@@ -1,0 +1,2 @@
+webpackJsonp([0],{hHLY:function(e,t,d){"use strict";t.a=function(e,t){var d=!(arguments.length>2&&void 0!==arguments[2])||arguments[2];return Object(r.a)(s,e,t,d)};var r=d("gyMJ"),s={getWebsite:{url:"/get-website",method:"get"},deleteWeb:{url:"/delete-website",method:"delete"},addWebsite:{url:"/add-website",method:"post"},updateWebsite:{url:"/update-website",method:"put"},updateWebsiteOrderNO:{url:"/update-website-orderNO",method:"post"}}}});
+//# sourceMappingURL=0.81cefe39e98df547d0c1.js.map
