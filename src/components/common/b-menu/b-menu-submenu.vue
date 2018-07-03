@@ -93,7 +93,29 @@ export default {
       return this.$store.state.menu.isEditMenuStatus
     }
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.onresize()
+    })
+  },
   methods: {
+    onresize () {
+      this.computedSubmenuHeight()
+      window.onresize = () => {
+        this.deboundce(this.computedSubmenuHeight, 300)()
+      }
+    },
+    deboundce (event, time) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(event, time)
+      }
+    },
+    computedSubmenuHeight () {
+      let menuHeight = document.querySelectorAll('.el-container')[1].offsetHeight
+      document.querySelector('.inter-menu') && (document.querySelector('.inter-menu').style.maxHeight = (menuHeight - 56 * this.$store.state.menu.menuData.length) + 'px')
+    },
     editMenu () {
       this.$store.commit('menu/CHANGE_EDIT_STATUS')
     },
@@ -154,7 +176,6 @@ export default {
 <style lang="scss" scoped>
   .el-menu .inter-menu{
     border: 0 none;
-    max-height: 300px;
     overflow-y: auto;
   }
   .el-submenu /deep/ .el-submenu__title{
