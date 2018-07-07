@@ -77,7 +77,7 @@ module.exports = {
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
     // 进行Gzip压缩
-    productionGzip: true,
+    productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to
