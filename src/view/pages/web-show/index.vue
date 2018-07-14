@@ -58,10 +58,10 @@
   import req from 'api/web'
   import { selectSort } from 'util/sortMethods'
   import draggable from 'vuedraggable'
-  import WebItem from './web-item.vue'
+  import WebItem from 'components/web-show/web-item.vue'
   import BDialog from 'components/common/b-dialog.vue'
   import BSelect from 'components/common/b-select.vue'
-  import WebDialog from './web-dialog.vue'
+  import WebDialog from 'components/web-show/web-dialog.vue'
   export default {
     name: 'WebShow',
     components: {
